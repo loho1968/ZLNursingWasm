@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZlNursingWasm.Server", "ZlNursingWasm\Server\ZlNursingWasm.Server.csproj", "{D4A20635-8845-4834-B0D9-6172AA4BBD10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZlNursingWasm.Client", "ZlNursingWasm\Client\ZlNursingWasm.Client.csproj", "{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZlNursingWasm.Shared", "ZlNursingWasm\Shared\ZlNursingWasm.Shared.csproj", "{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4A20635-8845-4834-B0D9-6172AA4BBD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A20635-8845-4834-B0D9-6172AA4BBD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A20635-8845-4834-B0D9-6172AA4BBD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A20635-8845-4834-B0D9-6172AA4BBD10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
