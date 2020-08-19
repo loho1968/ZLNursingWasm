@@ -1,0 +1,39 @@
+﻿@using NursingModel.Form
+@model FormItem
+
+@{
+    //项目的Label
+    string itemTitle = "";
+    string itemLabel = "";
+
+    <div class="itemLabel col-md-3 formrow-label">
+        <div class="form_label ">
+            @{
+                //todo:后续改成一个配置参数
+                if (Model.ItemLabel.Length > 15)
+                {
+                    itemTitle = Model.ItemLabel;
+                    itemLabel = Model.ItemLabel.Substring(0, 14) + "...";
+                }
+                else
+                {
+                    itemTitle = "";
+                    itemLabel = Model.ItemLabel;
+                }
+            }
+
+            @*<div class="itemLabel col-md-3 formrow-label">
+                    <label for="a_@item.ItemId" class="form_label" id="a_@(item.ItemId)_label" title="@item.ItemLabel">
+                        @itemLabel
+                    </label>
+                </div>*@
+            <label class="" data-ajust="0" for="a_@Model.ItemId" id="a_@(Model.ItemId)_label" title="@itemTitle">
+                @itemLabel
+            </label>
+            @{
+
+                <i class="fa fa-history history hide" aria-hidden="true" id="a_@(Model.ItemId)_history" data-itemid="@Model.ItemId"></i>
+            }
+        </div>
+    </div>
+}

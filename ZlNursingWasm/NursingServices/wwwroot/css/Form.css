@@ -1,0 +1,718 @@
+﻿/* 移动端 大于300px */
+@media (min-width: 300px) {
+    .col-md-2, .col-md-6,
+    .col-md-3, .col-md-10 {
+        padding: 0;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .containerMain {
+        width: 1366px;
+        margin: auto;
+    }
+
+    body {
+        background-color: #F4F6F9;
+        font-family: 'Microsoft YaHei';
+        font-size: 16px;
+    }
+
+    .unicode {
+        font-size: 14px;
+    }
+
+    /*上次值*/
+    .lastValues {
+        font-size: 10px;
+        float: right;
+        padding-top: 27px;
+        cursor: pointer;
+        color: darkgray;
+        padding-right: 2px;
+    }
+    /*滚动条*/
+    ::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 6px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 6px;
+        background: #ffffff;
+        cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 5px;
+        -webkit-box-shadow: inset 0 0 5px rgba(240, 240, 240, .5);
+        background: #7a878e;
+        cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(240, 240, 240, .5);
+        border-radius: 0;
+        background: rgba(240, 240, 240, 0.5);
+        cursor: pointer;
+    }
+    /*头部区域*/
+    .header_line {
+        height: 70px;
+        background-color: #F9FDFF;
+        border-top: 1px solid #dcdcdc;
+        border-bottom: 1px solid #dcdcdc;
+        margin-bottom: 16px;
+    }
+
+    .header {
+        margin: auto;
+    }
+
+    .oberv-time {
+        display: table-cell;
+        width: 835px;
+        text-align: center;
+    }
+
+    .time {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .datetime {
+        border: 1px solid #dcdcdc;
+        background-color: #FFF7E8;
+        font-weight: bold;
+    }
+
+    .dateimg {
+        position: relative;
+        left: -22px;
+        top: -2px;
+    }
+
+    .operate {
+        text-align: center;
+    }
+
+    .operate_img {
+        padding-top: 6px;
+        float: left;
+        padding-left: 4px;
+    }
+
+    .opbtn {
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        margin-right: 3px;
+        min-width: 90px;
+        height: 30px;
+        line-height: 28px;
+    }
+
+    .opbtn_info {
+        background-color: rgb(0,123,255);
+        color: #F4F6F9;
+    }
+
+    .opbtn_exit {
+        margin-left: 8px;
+    }
+    /*容器*/
+    .main {
+        border: 1px solid #dcdcdc;
+        background-color: #F9FDFF;
+    }
+    /*大标题*/
+    .formTitle {
+        font-size: 24px;
+        color: black;
+        font-family: 'Microsoft YaHei';
+        text-align: center;
+        padding: 20px 0px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+
+    .form_row {
+        margin: 0;
+    }
+
+    .form_row {
+        border-top: 1px solid #dcdcdc;
+    }
+
+    .form_item {
+        min-height: 37px;
+    }
+
+    .col {
+        padding: 0;
+    }
+
+
+
+    div .itemLabel {
+        text-align: left;
+        width: 120px;
+        font-size: 16px;
+        /*margin-bottom:0;*/
+        color: #333333;
+        /*  width: 97%;*/
+    }
+
+
+
+    /*表单项*/
+    .form_label {
+        display: table-cell;
+        height: 100%;
+        background-color: #daecff;
+        border-right: 1px solid #dcdcdc;
+        border-left: 1px solid #dcdcdc;
+    }
+
+    .w100 {
+        width: 100%;
+    }
+
+    .form_group {
+        display: table-cell;
+        width: 100%;
+    }
+
+    /*表单内容*/
+    /*单选*/
+    .radio-inline {
+        padding-right: 15px;
+        margin: 8px 0px 0px 0;
+        padding-left: 4px;
+    }
+
+    input[type=radio] {
+        width: 14px;
+        height: 14px;
+    }
+
+        input[type=radio]:checked + span {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        input[type=radio]:after {
+            background-color: #FFF7E8;
+        }
+
+    .text {
+        position: relative;
+        top: -1px;
+    }
+    /*多选*/
+    .checkbox-inline {
+        padding-right: 15px;
+        margin: 6px 0px 0px 0;
+        padding-left: 4px;
+    }
+
+    input[type=checkbox] {
+        width: 14px;
+        height: 14px;
+    }
+
+        input[type=checkbox]:checked + span {
+            font-weight: bold;
+            font-size: 15px;
+        }
+    /*数字输入*/
+    .number {
+        width: 66%;
+        display: inline-block;
+        border: 1px solid #f5f2e3;
+        color: #010210;
+        font-size: 18px;
+        height: 28px;
+        font-weight: 500;
+        background-color: #FFF7E8;
+        margin-left: 4px;
+        margin-top: 5px;
+        border-radius: 6px;
+        -moz-appearance: textfield;
+    }
+
+        .number:focus {
+            outline: 1px solid #0012ff;
+            border-radius: 4px;
+        }
+        /*number箭头清除*/
+        .number::-webkit-outer-spin-button,
+        .number::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    /*血压*/
+    .blood {
+        width: 25% !important;
+    }
+
+    /*文本输入*/
+    .hide {
+        display: none;
+    }
+
+    .intext {
+        width: 90%;
+        /*display: inline-block;*/
+        border: 1px solid #f5f2e3;
+        color: #010210;
+        height: 28px;
+        font-size: 18px;
+        background-color: #FFF7E8;
+        margin-left: 4px;
+        font-weight: 500;
+        margin-top: 5px;
+        border-radius: 6px;
+    }
+
+        .intext:focus {
+            outline: 1px solid #0012ff;
+            border-radius: 4px;
+        }
+
+    input::-webkit-input-placeholder {
+        font-size: 12px;
+        color: #999999;
+    }
+    /*boostratp select*/
+    .filter-option-inner-inner {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .bootstrap-select .dropdown-toggle:focus {
+        outline: thin solid #0012ff !important;
+        outline-offset: -2px;
+    }
+    /*大便次数选项*/
+    .shit_select {
+        width: 52px !important;
+    }
+}
+
+
+/* PC端 */
+@media (min-width: 992px) {
+
+    .col-md-2, .col-md-6,
+    .col-md-3, .col-md-10 {
+        padding: 0;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .containerMain {
+        width: 1366px;
+        margin: auto;
+    }
+
+    body {
+        background-color: #F4F6F9;
+        font-family: 'Microsoft YaHei';
+        font-size: 16px;
+    }
+
+    .unicode {
+        font-size: 14px;
+    }
+
+    /*上次值*/
+    .lastValues {
+        font-size: 10px;
+        float: right;
+        padding-top: 27px;
+        cursor: pointer;
+        color: darkgray;
+        padding-right: 2px;
+    }
+    /*滚动条*/
+    ::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 6px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 6px;
+        background: #ffffff;
+        cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 5px;
+        -webkit-box-shadow: inset 0 0 5px rgba(240, 240, 240, .5);
+        background: #7a878e;
+        cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(240, 240, 240, .5);
+        border-radius: 0;
+        background: rgba(240, 240, 240, 0.5);
+        cursor: pointer;
+    }
+    /*头部区域*/
+    .header_line {
+        height: 70px;
+        background-color: #F9FDFF;
+        border-top: 1px solid #dcdcdc;
+        border-bottom: 1px solid #dcdcdc;
+        margin-bottom: 16px;
+    }
+
+    .header {
+        margin: auto;
+    }
+
+    .oberv-time {
+        display: table-cell;
+        width: 835px;
+        text-align: left;
+    }
+
+    .time {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .datetime {
+        border: 1px solid #dcdcdc;
+        background-color: #FFF7E8;
+        font-weight: bold;
+    }
+
+    .dateimg {
+        position: relative;
+        left: -22px;
+        top: -2px;
+    }
+
+    .operate {
+        display: table-cell;
+    }
+
+    .operate_img {
+        padding-top: 6px;
+        float: left;
+        padding-left: 4px;
+    }
+
+    .opbtn {
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+        margin-right: 3px;
+        min-width: 90px;
+        height: 30px;
+        line-height: 28px;
+    }
+
+    .opbtn_info {
+        background-color: rgb(0,123,255);
+        color: #F4F6F9;
+    }
+
+    .opbtn_exit {
+        margin-left: 8px;
+    }
+    /*容器*/
+    .main {
+        border: 1px solid #dcdcdc;
+        background-color: #F9FDFF;
+    }
+    /*大标题*/
+    .formTitle {
+        font-size: 24px;
+        color: black;
+        font-family: 'Microsoft YaHei';
+        text-align: center;
+        padding: 20px 0px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+
+    .form_row {
+        margin: 0;
+    }
+
+    .form_row {
+        border-top: 1px solid #dcdcdc;
+    }
+
+    .form_item {
+        min-height: 37px;
+    }
+
+    .col {
+        padding: 0;
+    }
+
+
+
+    .itemLabel {
+        text-align: center;
+        width: 120px;
+        font-size: 16px;
+        /*margin-bottom:0;*/
+        color: #333333;
+    }
+
+
+
+    /*表单项*/
+    .form_label {
+        display: table-cell;
+        height: 100%;
+        background-color: #daecff;
+        border-right: 1px solid #dcdcdc;
+        border-left: 1px solid #dcdcdc;
+    }
+
+    .form_group {
+        display: table-cell;
+        width: 100%;
+    }
+
+    /*表单内容*/
+    /*单选*/
+    .radio-inline {
+        padding-right: 15px;
+        margin: 8px 0px 0px 0;
+        padding-left: 4px;
+    }
+
+    input[type=radio] {
+        width: 14px;
+        height: 14px;
+    }
+
+        input[type=radio]:checked + span {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        input[type=radio]:after {
+            background-color: #FFF7E8;
+        }
+
+    .text {
+        position: relative;
+        top: -1px;
+    }
+    /*多选*/
+    .checkbox-inline {
+        padding-right: 15px;
+        margin: 6px 0px 0px 0;
+        padding-left: 4px;
+    }
+
+    input[type=checkbox] {
+        width: 14px;
+        height: 14px;
+    }
+
+        input[type=checkbox]:checked + span {
+            font-weight: bold;
+            font-size: 15px;
+        }
+    /*数字输入*/
+    .number {
+        width: 66%;
+        display: inline-block;
+        border: 1px solid #f5f2e3;
+        color: #010210;
+        font-size: 18px;
+        height: 28px;
+        font-weight: 500;
+        background-color: #FFF7E8;
+        margin-left: 4px;
+        margin-top: 5px;
+        border-radius: 6px;
+        -moz-appearance: textfield;
+    }
+
+        .number:focus {
+            outline: 1px solid #0012ff;
+            border-radius: 4px;
+        }
+        /*number箭头清除*/
+        .number::-webkit-outer-spin-button,
+        .number::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    /*血压*/
+    .blood {
+        width: 25% !important;
+    }
+
+    /*文本输入*/
+    .hide {
+        display: none;
+    }
+
+    .intext {
+        width: 90%;
+        /*display: inline-block;*/
+        border: 1px solid #f5f2e3;
+        color: #010210;
+        height: 28px;
+        font-size: 18px;
+        background-color: #FFF7E8;
+        margin-left: 4px;
+        font-weight: 500;
+        margin-top: 5px;
+        border-radius: 6px;
+    }
+
+        .intext:focus {
+            outline: 1px solid #0012ff;
+            border-radius: 4px;
+        }
+
+    input::-webkit-input-placeholder {
+        font-size: 12px;
+        color: #999999;
+    }
+    /*boostratp select*/
+    .filter-option-inner-inner {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .bootstrap-select .dropdown-toggle:focus {
+        outline: thin solid #0012ff !important;
+        outline-offset: -2px;
+    }
+    /*大便次数选项*/
+    .shit_select {
+        width: 52px !important;
+    }
+}
+
+
+.ObserStep_Container {
+    border-top: 1px dashed #d0d0d0;
+    margin-top: 24px;
+}
+
+.NursingStep_body {
+    font-size: 14px;
+    background-color: #F9FDFF;
+    color: #333333;
+}
+
+
+.NursingStep_title {
+    background-color: rgba(52,123,255,0.1);
+    color: #333333;
+    font-size: 16px;
+}
+
+.Measures_title p {
+    text-align: center;
+    line-height: 34px;
+}
+/*侧边栏样式*/
+.sidebar {
+    float: left;
+    width: 200px;
+    margin-left: -200px;
+    height: 100%;
+    background-color: #F4F6F9;
+    overflow: hidden;
+    transition: 0.8s all;
+    border: 1px solid #a2a097;
+}
+
+.side {
+    margin-left: 0;
+}
+
+.sidebar ul {
+    margin: 0;
+    padding: 0;
+}
+
+    .sidebar ul li {
+        list-style: none;
+    }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: black;
+            height: 80px;
+            width: 100%;
+            font-size: 16px;
+            line-height: 80px;
+            text-align: center;
+            display: block;
+            transition: 0.6s all;
+            border: 1px solid #a2a097;
+        }
+
+            .sidebar ul li a:hover {
+                background: #daecffb8;
+                border: 1px solid #59a2ef;
+            }
+
+.btn1 {
+    float: left;
+    padding: 0 10px;
+    font-size: 40px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-family: Ionicons;
+    cursor: pointer;
+}
+/*病情观察和措施*/
+.area {
+    width: 100% !important;
+    display: block;
+    height: 0;
+    padding: 0;
+    border: 0;
+    transition: 0.6s all;
+}
+
+.area-h {
+    height: 70px;
+}
+
+.folder {
+    float: right
+}
+
+.folder-img {
+    margin-right: 10px;
+    width: 1.5rem;
+}
+
+    .folder-img:hover {
+        cursor: pointer;
+    }
+
+.hidden_div {
+    margin: 0;
+    position: absolute;
+    overflow: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    outline: 0;
+    opacity: 0.5;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,19 @@
+﻿@using NursingModel.Form
+@model FormList
+@{
+    //表单说明
+    if (Model.Description != null)
+    {
+        <div class='formDescription row'>
+            <div class="des_img col-md-1">
+                <img src="~/img/icon_tisi.png" alt="未能正确加载图片" />
+            </div>
+            <div class="tips col-md-11">
+                <h5>填表说明：</h5>
+                <div class="tips_content">
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+        </div>
+    }
+}

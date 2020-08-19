@@ -1,0 +1,70 @@
+﻿@using NursingModel.Form
+@model FormList
+
+@{
+    //评分表结果和措施
+    string niExpr;
+    if (Model.FormType == "r")
+    {
+        <div class="result normal">
+            @{
+                if (Model.FormType == "r") //评分表
+                {
+                    <div class="row result_row">
+                        <div class="col-md-2 result_title">
+                            评分结果
+                        </div>
+                        <div class="col-md-10 result_score" id="a_@(Model.FormId)_score">
+                            【未评】
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+    }
+
+    //护理措施
+    if (Model.FormNiLists.Count > 0)
+    {
+        string niChecked = "";
+        <div class="row Measures">
+            <div class="col-md-2 Measures_title">
+                <p>护理措施</p>
+            </div>
+            <div class="col-md-10 Measures_body">
+                @*操作按钮折叠-展开*@
+                <div class="folder">
+                    <img src="~/img/icon_zhankai.png" />
+                    <input type="button" data-open="0" class="open" value="展  开" />
+                </div>
+                <div class="niList">
+                    @{ foreach (var ni in Model.FormNiLists)
+                        {
+                            niExpr = "1==1 &";
+                            if (ni.LowerOperator != null && ni.LowerScore != null)
+                            {
+                                niExpr = "form_score" + ni.LowerOperator + ni.LowerScore;
+                            }
+                            else
+                            {
+                                niExpr = "1=1";
+                            }
+                            if (ni.MaxOperator != null && ni.MaxScore != null)
+                            {
+                                niExpr = niExpr + " & form_score" + ni.MaxOperator + ni.MaxScore;
+                            }
+
+
+                            <p id="a_@(ni.NiListId)_container">
+                                <input id="a_@ni.NiListId" class="niList item_niList" type="checkbox" @niChecked name="@Model.FormName" value="@ni.NiListId" data-type="平面单选" expr="@niExpr">
+                                <label for="a_@ni.NiListId">@ni.NiName</label>
+                            </p>
+                        }
+                    }
+                </div>
+
+            </div>
+        </div>
+    }
+}

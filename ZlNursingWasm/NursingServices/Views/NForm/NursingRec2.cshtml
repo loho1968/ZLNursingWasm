@@ -1,0 +1,502 @@
+﻿
+@using NursingModel.Form
+@model FormList
+
+@{
+    Layout = "../Shared/_FormLayout.cshtml";
+}
+
+<script type="text/javascript">
+
+    $(function () {
+        //表单项检查
+        $("body").on("blur", ".valid", function () {
+            $(".sub_valid").click();//检查输入
+        })
+
+        //显示历史值
+        $("body").on("click", ".history", function () {
+            var str = $(this).attr("data-his");
+            if (str == undefined || str == "null") {
+                return;
+            }
+            var data = eval('(' + str + ')');
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html += data[i].Value + "<br/>";
+            }
+            layer.tips(html, $(this), {
+                tips: [1, '#e5f6f5']
+            });
+        })
+
+        //上次值->点击赋值
+        $("body").on("click", ".lastValues", function () {
+            var data = $(this).attr("data-lastvalue");
+            if (data == undefined || data == "null")
+                return;
+            var obj = eval('(' + data + ')');
+            var item = $(this).parent().find(".itemLov");
+            var type = item.attr("data-type");
+            switch (type) {
+                case "单行文本": {
+                    item.val(obj.Value);
+                    break;
+                }
+                case "数字": {
+                    item.val(obj.Value);
+                    break;
+                }
+                case "多行文本": {
+                    item.val(obj.Value);
+                    break;
+                }
+                case "日期": {
+                    item.val(obj.Value);
+                    break;
+                }
+                case "平面多选": {
+                    item.each(function () {
+                        if (obj.Value.indexOf($(this).val())>=0) {
+                            $(this).attr("checked", "checked")
+                        }
+                        return false;
+                    })
+                    break;
+                }
+                case "平面单选": {
+                    item.each(function () {
+                        if ($(this).val() == obj.Value) {
+                            $(this).attr("checked","checked")
+                        }
+                        return false;
+                    })
+                    break;
+                }
+                case "下拉单选": {
+                    item.selectpicker('val', obj.Value);
+                    break;
+                }
+                case "下拉多选": {
+                    var arr = obj.Value.split(":");//暂且多选使用“:”分割
+                    item.selectpicker('val', arr);
+                    break;
+                }
+            }
+        })
+
+
+        //样式调整：label
+        $(".form_label").each(function () {
+            var height = $(this).parent().height();
+            $(this).height(height - 8);
+        })
+
+
+        //日期显示
+        $(".flatpickr").flatpickr({
+            defaultDate: new Date()//默认当前时间
+        });
+
+        //点击其他
+        $(".choosing").click(function () {
+            //其他
+            if ($(this).attr("data-other") == "1" || $(this).val().indexOf("其他") >= 0) {
+                if ($(this).prop('checked') == true) {
+                    $(this).parent().find(".other").show();
+                }
+                else {
+                    $(this).parent().find(".other").show();
+                    $(this).parent().find(".other").val("");
+                }
+            }
+            else {
+                //单选选中其他选项
+                if ($(this).attr("type") == "radio") {
+                    $(this).parent().parent().find(".other").val("");
+                    $(this).parent().parent().find(".other").hide();
+                }
+            }
+        })
+
+        //拒测
+        $("body").on("dblclick", ".itemLabel", function () {
+            var id = $(this).attr("data-ajust");
+            //拒测
+            if (id == "0") {
+                $(this).parent().parent().find("input").attr("disabled", "disabled");
+                $(this).parent().parent().find(".text").css({ "color": "#999999" })
+                $(this).parent().parent().find("input").css({"background-color":"#EEEEEE"})
+                $(this).attr("data-ajust", "1");
+                $(this).attr("title", $(this).text().replace(/\n/g, "").replace(/\s+/g, "") + "：拒测");
+                $(this).css({ "text-decoration": "line-through", "color":"brown"});
+            }
+            //复原
+            else {
+                $(this).parent().parent().find(".text").css({ "color": "#212529" });
+                $(this).parent().parent().find("input").css({ "background-color": "#FFF7E8" })
+                $(this).parent().parent().find("input").removeAttr("disabled");
+                $(this).attr("data-ajust", "0");
+                $(this).css({ "text-decoration": "none", "color": "#333333" });
+                $(this).attr("title", $(this).text().replace(/\n/g, "").replace(/\s+/g, ""));
+            }
+        })
+    });
+    window.onresize = function () {
+        $(".form_label").each(function () {
+            var height = $(this).parent().height();
+            $(this).height(height - 8);
+        })
+    }
+    //检查表单
+    function ValidItem() {
+        return false;
+    }
+
+    FormListScore = [];
+    FormLists =@Html.Raw(ViewBag.FormLists)
+        function ItemChange(e) {
+            //alert("点击项目ID:"+document.getElementById(e.id)..getAttribute("formId"));
+            CalculationFormScore(e);
+        };
+    window.onload = function () {
+        $(".itemLov").on("change", function (e) {
+            return ItemChange(this);
+        });
+        }
+</script>
+<link href="~/css/Form.css" rel="stylesheet" />
+@{
+    string formRow;
+    int rowCount = 1;
+    string itemTitle = "";
+    string itemLabel = "";
+    string itemLov;
+    string itemLovTitle;
+    bool isNew = ViewBag.isNew;
+    //头部区域
+    <form onsubmit="return ValidItem()">
+
+
+        <div class="row header_line">
+            <div class="header">
+                <div class="oberv-time well">
+                    <label class="time">观察时间</label>
+                    <input class="flatpickr datetime" data-enable-time=true data-time_24hr=true><img class="dateimg" src="~/img/icon_rili_18.png" />
+                </div>
+                <div class="ml-auto operate">
+                    <button type="button" class="submit opbtn opbtn_info"><img class="operate_img" src="~/img/icon_save.png" />保存</button>
+                    <button type="button" class="submit opbtn opbtn_none"><img class="operate_img" src="~/img/icon_xinzen.png" />新增</button>}
+                    <button type="button" class="opbtn opbtn_none opbtn_exit"><img class="operate_img" src="~/img/icon_tuichu.png" />退出</button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="container">
+            @{
+                var form = Model;
+
+                if (rowCount % 2 == 0)
+                {
+                    formRow = "odd_row_form";
+
+                }
+                else
+                {
+                    formRow = "even_row_form";
+                }
+
+
+                <div class="main  @formRow " id="a_@form.FormId" formType="@form.FormType">
+
+                    <p class="formTitle" for="a_@(form.FormId)_title">@form.FormName</p>
+                    @{
+                        var rownumber = 1;
+                        var continutag = true;
+                        while (continutag)
+                        {
+                            //获取第一个元素同一行的元素
+                            var formList = form.FormItems.Where(o => o.RowNumber == rownumber).ToList();
+                            if (formList == null)
+                                continue;
+                            var columnnum = 12 / formList.Count();
+                            //能否满足12列平分布局
+                            var tag = columnnum.ToString().Contains(".") ? true : false;
+                            //行
+                            <div class="row form_row">
+                                @foreach (var item in formList)
+                                {
+                                    //平分布局
+                                    <div class="col form_item">
+                                        @{
+                                            if (item.ItemLabel.Length > 15)
+                                            {
+                                                itemTitle = item.ItemLabel;
+                                                itemLabel = item.ItemLabel.Substring(0, 14) + "...";
+                                            }
+                                            else
+                                            {
+                                                itemTitle = "";
+                                                itemLabel = item.ItemLabel;
+                                            }
+                                        }
+                                        <div class="form_label">
+
+                                            <label class="itemLabel" data-ajust="0" for="a_@item.ItemId" id="a_@(item.ItemId)_label" title="@item.ItemLabel">
+                                                @itemLabel
+                                            </label>
+                                            @{
+                                                @*if (!isNew && item != null)
+                                                    {
+                                                        <i class="fa fa-history history" data-his="@Newtonsoft.Json.JsonConvert.SerializeObject(item.HistoryValues)" aria-hidden="true"></i>
+                                                    }*@
+                                            }
+                                        </div>
+                                        <div class="form_group">
+                                            @{
+                                                if (item.ObservItemId != SpecialObservItem.今日大便次数)
+                                                {
+                                                    switch (item.InputType)
+                                                    {
+
+                                                        case "按钮单选":
+                                                            if (form.FormType != "r")
+                                                            {
+                                                                @*<label>
+                                                                        <input id="@(item.ItemId)_nullLov" class="itemLov" type="radio" name="@item.ItemId" value="" data-type="平面单选" title="取消选择" formId="@form.FormId" itemid="@item.ItemId" score="">
+                                                                    </label>*@
+                                                            }
+                                                            foreach (var lov in item.FormItemListValues)
+                                                            {
+                                                                itemLov = lov.Display;
+                                                                if (itemLov.Length > 15)
+                                                                {
+                                                                    itemLovTitle = itemLov;
+                                                                    itemLov = itemLov.Substring(0, 14) + "...";
+                                                                }
+                                                                else
+                                                                {
+                                                                    itemLovTitle = "";
+                                                                }
+
+
+                                                                <label>
+                                                                    <input id="a_@lov.ItemDataId" class="itemLov" type="radio" data-other="@lov.OtherSign" name="@item.ItemId" value="@lov.Return" data-type="平面单选" title="@itemLovTitle" formId="@form.FormId" itemid="@item.ItemId">
+                                                                    <span class="text">@itemLov</span>
+                                                                    @{
+                                                                        if (lov.OtherSign == 1)
+                                                                        {
+                                                                            <input type="text" class="intext other hide" placeholder="请补充说明" />
+                                                                        }
+                                                                    }
+                                                                </label>
+                                                            }
+                                                            break;
+                                                        case "平铺单选":
+                                                            if (form.FormType != "r")
+                                                            {
+                                                                @*<label>
+                                                                        <input id="@(item.ItemId)_nullLov" class="itemLov" type="radio" name="@item.ItemId" value="" data-type="平面单选" title="取消选择" formId="@form.FormId" itemid="@item.ItemId" score="">
+                                                                    </label>*@
+                                                            }
+                                                            foreach (var lov in item.FormItemListValues)
+                                                            {
+                                                                itemLov = lov.Display;
+                                                                if (itemLov != null && itemLov.Length > 15)
+                                                                {
+                                                                    itemLovTitle = itemLov;
+                                                                    itemLov = itemLov.Substring(0, 14) + "...";
+                                                                }
+                                                                else
+                                                                {
+                                                                    itemLovTitle = "";
+                                                                }
+
+                                                                <label class="radio-inline">
+                                                                    <input id="a_@lov.ItemDataId" class="itemLov choosing" data-other="@lov.OtherSign" type="radio" name="@item.ItemId" value="@lov.Return" data-type="平面单选" title="@itemLovTitle" formId="@form.FormId" itemid="@item.ItemId">
+                                                                    <span class="text">@itemLov</span>
+                                                                    @{
+                                                                        if (lov.OtherSign == 1 || (itemLov != null && itemLov.Contains("其他")))
+                                                                        {
+                                                                            <input type="text" class="intext other hide" placeholder="请补充说明" />
+                                                                        }
+                                                                    }
+                                                                </label>
+                                                            }
+                                                            break;
+                                                        case "下拉多选":
+                                                            <select class="selectpicker itemLov" data-type="下拉多选" multiple="multiple" id="@item.ItemId" data-live-search="true" title="@item.ItemName">
+                                                                @{
+                                                                    foreach (var lov in item.FormItemListValues)
+                                                                    {
+                                                                        <option id="a_@lov.ItemDataId" name="@item.ItemId" value="@lov.Return" data-type="下拉多选" formId="@form.FormId" itemid="@item.ItemId">@lov.Display</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                            break;
+                                                        case "下拉单选":
+                                                            <select class="selectpicker itemLov" data-type="下拉单选" id="@item.ItemId" data-live-search="true" title="@item.ItemName">
+                                                                @{
+                                                                    foreach (var lov in item.FormItemListValues)
+                                                                    {
+                                                                        <option id="a_@lov.ItemDataId" name="@item.ItemId" value="@lov.Return" data-type="下拉单选" formId="@form.FormId" itemid="@item.ItemId">@lov.Display</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                            break;
+                                                        case "单选组合":
+                                                            foreach (var lov in item.FormItemListValues)
+                                                            {
+                                                                itemLov = lov.Display;
+                                                                itemLov = lov.Display;
+                                                                if (itemLov.Length > 15)
+                                                                {
+                                                                    itemLovTitle = itemLov;
+                                                                    itemLov = itemLov.Substring(0, 14) + "...";
+                                                                }
+                                                                else
+                                                                {
+                                                                    itemLovTitle = "";
+                                                                }
+                                                                <label class="">
+                                                                    <input id="a_@lov.ItemDataId" class="itemLov choosing" type="checkbox" data-other="@lov.OtherSign" name="@item.ItemId" value="@lov.Return" data-type="平面单选" title="@itemLovTitle" formId="@form.FormId" itemid="@item.ItemId">
+                                                                    <span class="text">@itemLov</span>
+                                                                    @{
+                                                                        if (lov.OtherSign == 1)
+                                                                        {
+                                                                            <input type="text" class="intext other hide" placeholder="请补充说明" />
+                                                                        }
+                                                                    }
+                                                                </label>
+                                                            }
+                                                            break;
+                                                        case "平铺多选":
+                                                            foreach (var lov in item.FormItemListValues)
+                                                            {
+                                                                itemLov = lov.Display;
+                                                                itemLov = lov.Display;
+                                                                if (itemLov.Length > 15)
+                                                                {
+                                                                    itemLovTitle = itemLov;
+                                                                    itemLov = itemLov.Substring(0, 14) + "...";
+                                                                }
+                                                                else
+                                                                {
+                                                                    itemLovTitle = "";
+                                                                }
+
+                                                                <label class="checkbox-inline">
+                                                                    <input id="a_@lov.ItemDataId" class="itemLov choosing" type="checkbox" data-other="@lov.OtherSign" name="@item.ItemId" value="@lov.Return" data-type="平面单选" title="@itemLovTitle" formId="@form.FormId" itemid="@item.ItemId">
+                                                                    <span class="text">@itemLov</span>
+                                                                    @{
+                                                                        if (lov.OtherSign == 1)
+                                                                        {
+                                                                            <input type="text" class="intext other hide" placeholder="请补充说明" />
+                                                                        }
+                                                                    }
+                                                                </label>
+                                                            }
+                                                            break;
+                                                        case "数字输入":
+                                                            if (SpecialObservItem.血压.Contains(item.ObservItemId))
+                                                            {
+                                                                <input type="number" class="blood number itemLov" data-type="数字" placeholder="收缩压" />
+                                                                @Html.Raw("/")
+                                                                <input type="number" class="blood number itemLov" data-type="数字" placeholder="舒张压" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="number" class="number valid itemLov" step="0.01" min="@item.LowerLimit" max="@item.UpperLimit" data-type="数字" />
+                                                            }
+                                                            if (!string.IsNullOrEmpty(item.UnitCode))
+                                                            {
+                                                                <span class="unicode">@item.UnitCode</span>
+                                                            }
+                                                            var className = "show";
+                                                            var title = "";
+                                                            break;
+                                                        case "文字输入":
+                                                            <input type="text" class="intext itemLov" id="@item.ItemId" data-type="单行文本" />
+                                                            break;
+                                                        case "时间选择":
+                                                            <input type="date" data-type="日期" class="itemLov" />
+                                                            break;
+                                                        case "文本框输入":
+                                                            <textarea rows="3" data-type="多行文本" class="itemLov"></textarea>
+                                                            if (!string.IsNullOrEmpty(item.UnitCode))
+                                                            {
+                                                                <span class="unicode">@item.UnitCode</span>
+                                                            }
+                                                            break;
+                                                    }
+                                                    <span id="a_@(item.ItemId)_error_placeholder" class="a-Form-error" style="color:red"></span>
+                                                }
+                                                else
+                                                {
+                                                    //今日大便次数
+                                                    <label class="checkbox-inline">
+                                                        <input id="a_@(item.ItemId)_incontinence" class="itemLov choosing shit" type="checkbox" name="@item.ItemId" value="1">
+                                                        <span class="text">大便失禁</span>
+                                                    </label>
+                                                    <label class="checkbox-inline">
+                                                        <input id="a_@(item.ItemId)_anal" class="itemLov choosing shit" type="checkbox" name="@item.ItemId" value="1">
+                                                        <span class="text">人工肛门</span>
+                                                    </label>
+
+                                                    <label class="shit itemLabel" data-ajust="0" for="a_@(item.ItemId)_before" id="a_@(item.ItemId)_before_label" title="">
+                                                        大便次数
+                                                    </label>
+                                                    <select class="selectpicker" data-live-search="true" data-style="shit_select" itemid="shit_before">
+                                                        <option class="itemLov" name="@item.ItemId" value="0" data-type="下拉单选">0</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="1" data-type="下拉单选">1</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="2" data-type="下拉单选">2</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="3" data-type="下拉单选">3</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="4" data-type="下拉单选">4</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="*" data-type="下拉单选">*</option>
+                                                    </select>
+
+                                                    <label class="shit itemLabel" data-ajust="0" for="a_@(item.ItemId)_after" id="a_@(item.ItemId)_after_label" title="">
+                                                        灌肠后
+                                                    </label>
+                                                    <select class="selectpicker" data-live-search="true" data-style="shit_select" itemid="shit_after">
+                                                        <option class="itemLov" name="@item.ItemId" value="0" data-type="下拉单选">0</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="1" data-type="下拉单选">1</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="2" data-type="下拉单选">2</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="3" data-type="下拉单选">3</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="4" data-type="下拉单选">4</option>
+                                                        <option class="itemLov" name="@item.ItemId" value="*" data-type="下拉单选">*</option>
+                                                    </select>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+
+                            rownumber++;
+                            //下一行无元素
+                            continutag = form.FormItems.Where(o => o.RowNumber == rownumber).ToList().Count == 0 ? false : true;
+                        }
+
+                    }
+
+                    @{
+                        if (form.Description != null)
+                        {
+                            string htmlcode = "<div class=' formDescription'>" + form.Description + "</div>";
+
+                            @Html.Raw(htmlcode);
+                        }
+                    }
+                </div>
+
+            }
+        </div>
+        <input type="submit" class="hide sub_valid" value="表单隐式检查" />
+    </form>
+}
+
+
+

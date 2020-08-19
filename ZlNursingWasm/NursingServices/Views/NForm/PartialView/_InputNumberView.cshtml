@@ -1,0 +1,40 @@
+﻿@using NursingModel.Form
+@model FormItem
+
+@{
+    //数字输入
+    string required = "";
+    string step = "1";
+    //项目是否必须输入
+    if (Model.ReqSign != null && Model.ReqSign == 1 && Model.FormType.IndexOf("n") == -1)
+    {
+        required = "required";
+    }
+    else
+    {
+        required = "";
+    }
+
+    //项目精度，未配置的数字项目都是整数
+    if (Model.Precision != null)
+    {
+        step = Model.Precision.ToString();
+    }
+    if (SpecialObservItem.血压.Contains(Model.ObservItemId))
+    {
+        <input type="number" class="blood number iteminput systolic" step="1" min="0" max="300" data-type="数字" placeholder="收缩压" id="@(Model.ItemId)_systolic" data-itemid="@Model.ItemId" />
+        @Html.Raw("/")
+        <input type="number" class="blood number iteminput diastolic" step="1" min="0" max="300" data-type="数字" placeholder="舒张压" id="@(Model.ItemId)_diastolic" data-itemid="@Model.ItemId" />
+    }
+    else
+    {
+        <input type="number" class="number valid iteminput" step="@step" min="@Model.LowerLimit" max="@Model.UpperLimit" @required data-type="@Model.InputType" data-itemid="@Model.ItemId" />
+    }
+    //项目的单位
+    if (!string.IsNullOrEmpty(Model.UnitCode))
+    {
+        <span class="unicode">@Model.UnitCode</span>
+    }
+
+    <i class="lastValues hide" aria-hidden="true"></i>
+}

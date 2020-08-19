@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] </title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/popper_2.0.0.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+    <script src="~/flatpickr/flatpickr.min.js"></script>
+    <script src="~/flatpickr/flatpickr.l10n.zh.js"></script>
+    <script src="~/Bootstrap_4.1.1/dist/js/bootstrap.js"></script>
+    <script src="~/bootstrap-select-1.13.9/dist/js/bootstrap-select.js"></script>
+
+    <script src="~/layer/layer.js"></script>
+
+    <script src="~/js/NursingForm.js"></script>
+
+    <link rel="stylesheet" href="~/Bootstrap_4.1.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+    @*<link rel="stylesheet" href="~/bootstrap-table-1.15.3/bootstrap-table.min.css">*@
+    <link href="~/flatpickr/flatpickr.min.css" rel="stylesheet" />
+
+
+    <link href="~/Bootstrap_4.1.1/dist/fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script>
+    @*<script src="~/bootstrap-table-1.15.3//bootstrap-table.min.js"></script>*@
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

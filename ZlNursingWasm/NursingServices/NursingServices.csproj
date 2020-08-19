@@ -1,0 +1,288 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>bin\Debug\netcoreapp3.1\NursingServices.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="JWT" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="sqlSugarCore" Version="5.0.0.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.4" />
+    <PackageReference Include="Mapster.EFCore" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NursingBLL\NursingBLL.csproj" />
+    <ProjectReference Include="..\NursingCommon\NursingCommon.csproj" />
+    <ProjectReference Include="..\NursingModel\NursingModel.csproj" />
+    <ProjectReference Include="..\ScheduledTasks\ScheduledTasks.csproj" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Folder Include="JWT\" />
+    <Folder Include="Controllers\Cache\" />
+    <Folder Include="wwwroot\img\" />
+    <Folder Include="Views\NForm\PartialView\" />
+    <Folder Include="wwwroot\ServiceAddress\" />
+    <Folder Include="wwwroot\bootstrap-table-1.15.3\bootstrap-table.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Folder>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <Content Remove="wwwroot\lib\jquery\LICENSE.txt" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <Content Update="Views\HealthEducation\GetPatHeduRecByRecId.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\HealthEducation\HeduList.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\HealthEducation\HeduGroupList.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Remove="Views\NForm\NursingRecPartView\_RadioButtonView.cshtml" />
+    <Content Remove="Views\NForm\NursingRecPartView\_RadioView.cshtml" />
+    <Content Remove="Views\NForm\NursingRecPartView\_SelectMultiView.cshtml" />
+    <Content Remove="Views\NForm\NursingRecPartView\_SelectSingleView.cshtml" />
+    <Content Update="wwwroot\bootstrap-table-1.15.3\bootstrap-table.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Remove="wwwroot\bootstrap-table-1.15.3\bootstrap-table.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\bootstrap-select-1.13.9\.github\move.yml" />
+    <None Include="wwwroot\bootstrap-select-1.13.9\.github\ISSUE_TEMPLATE.md" />
+    <None Include="wwwroot\Configuration\.gitignore" />
+    <None Include="wwwroot\Configuration\css\26707bedc25a4344bb99d7e1215825f4.css" />
+    <None Include="wwwroot\Configuration\css\animate.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-datepicker.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-editable.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-markdown.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-select.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-table.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-table.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-tagsinput.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap-timepicker.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrap.min.css" />
+    <None Include="wwwroot\Configuration\css\bootstrapvalidator.min.css" />
+    <None Include="wwwroot\Configuration\css\chosen.min.css" />
+    <None Include="wwwroot\Configuration\css\datatables.bootstrap.css" />
+    <None Include="wwwroot\Configuration\css\datatables.responsive.css" />
+    <None Include="wwwroot\Configuration\css\dropzone.min.css" />
+    <None Include="wwwroot\Configuration\css\font-awesome.min.css" />
+    <None Include="wwwroot\Configuration\css\footable.core.css" />
+    <None Include="wwwroot\Configuration\css\fullcalendar-nifty.min.css" />
+    <None Include="wwwroot\Configuration\css\fullcalendar.min.css" />
+    <None Include="wwwroot\Configuration\css\ionicons.min.css" />
+    <None Include="wwwroot\Configuration\css\magic-check.min.css" />
+    <None Include="wwwroot\Configuration\css\morris.min.css" />
+    <None Include="wwwroot\Configuration\css\nifty-demo-icons.min.css" />
+    <None Include="wwwroot\Configuration\css\nifty-demo.min.css" />
+    <None Include="wwwroot\Configuration\css\nifty.min.css" />
+    <None Include="wwwroot\Configuration\css\nouislider.min.css" />
+    <None Include="wwwroot\Configuration\css\pace.min.css" />
+    <None Include="wwwroot\Configuration\css\premium-line-icons.css" />
+    <None Include="wwwroot\Configuration\css\premium-solid-icons.min.css" />
+    <None Include="wwwroot\Configuration\css\select2.min.css" />
+    <None Include="wwwroot\Configuration\css\summernote.min.css" />
+    <None Include="wwwroot\Configuration\css\switchery.min.css" />
+    <None Include="wwwroot\Configuration\css\themify-icons.min.css" />
+    <None Include="wwwroot\Configuration\fonts\cjzkeoubrn4kerxqtauh3acwcynf_cdxxwclxiixg1c.ttf" />
+    <None Include="wwwroot\Configuration\fonts\dxi1orhcpsqm3vp6mxoatynf5ufddttmlvmwujdhhgs.ttf" />
+    <None Include="wwwroot\Configuration\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\Configuration\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Configuration\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\Configuration\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\Configuration\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Configuration\fonts\footable.eot" />
+    <None Include="wwwroot\Configuration\fonts\footable.svg" />
+    <None Include="wwwroot\Configuration\fonts\footable.ttf" />
+    <None Include="wwwroot\Configuration\fonts\footable.woff" />
+    <None Include="wwwroot\Configuration\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\Configuration\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\Configuration\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\Configuration\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\Configuration\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\Configuration\fonts\ionicons.eot" />
+    <None Include="wwwroot\Configuration\fonts\ionicons.svg" />
+    <None Include="wwwroot\Configuration\fonts\ionicons.ttf" />
+    <None Include="wwwroot\Configuration\fonts\ionicons.woff" />
+    <None Include="wwwroot\Configuration\fonts\k3k702zokiljc3wvjuplzinf5ufddttmlvmwujdhhgs.ttf" />
+    <None Include="wwwroot\Configuration\fonts\mtp_ysujh_bn48vbg8snsonf5ufddttmlvmwujdhhgs.ttf" />
+    <None Include="wwwroot\Configuration\fonts\nifty-demo-icons.eot" />
+    <None Include="wwwroot\Configuration\fonts\nifty-demo-icons.svg" />
+    <None Include="wwwroot\Configuration\fonts\nifty-demo-icons.ttf" />
+    <None Include="wwwroot\Configuration\fonts\nifty-demo-icons.woff" />
+    <None Include="wwwroot\Configuration\fonts\premium-line-icons.eot" />
+    <None Include="wwwroot\Configuration\fonts\premium-line-icons.svg" />
+    <None Include="wwwroot\Configuration\fonts\premium-line-icons.ttf" />
+    <None Include="wwwroot\Configuration\fonts\premium-line-icons.woff" />
+    <None Include="wwwroot\Configuration\fonts\premium-solid-icons.eot" />
+    <None Include="wwwroot\Configuration\fonts\premium-solid-icons.svg" />
+    <None Include="wwwroot\Configuration\fonts\premium-solid-icons.ttf" />
+    <None Include="wwwroot\Configuration\fonts\premium-solid-icons.woff" />
+    <None Include="wwwroot\Configuration\fonts\summernote.eot" />
+    <None Include="wwwroot\Configuration\fonts\summernote.ttf" />
+    <None Include="wwwroot\Configuration\fonts\summernote.woff" />
+    <None Include="wwwroot\Configuration\fonts\themify.eot" />
+    <None Include="wwwroot\Configuration\fonts\themify.svg" />
+    <None Include="wwwroot\Configuration\fonts\themify.ttf" />
+    <None Include="wwwroot\Configuration\fonts\themify.woff" />
+    <None Include="wwwroot\Configuration\images\bg-img-2.jpg" />
+    <None Include="wwwroot\Configuration\images\clear.png" />
+    <None Include="wwwroot\Configuration\images\loading.gif" />
+    <None Include="wwwroot\Configuration\images\nav-profile.png" />
+    <None Include="wwwroot\Configuration\images\sort_asc.png" />
+    <None Include="wwwroot\Configuration\images\sort_asc_disabled.png" />
+    <None Include="wwwroot\Configuration\images\sort_both.png" />
+    <None Include="wwwroot\Configuration\images\sort_desc.png" />
+    <None Include="wwwroot\Configuration\images\sort_desc_disabled.png" />
+    <None Include="wwwroot\Configuration\img\zlsoft.ico" />
+    <None Include="wwwroot\Configuration\js\bg-images.js" />
+    <None Include="wwwroot\Configuration\js\bootbox.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-datepicker.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-editable.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-markdown.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-select.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-table-editable.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-table-export.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-table-zh-CN.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-table.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-table.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-tagsinput.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap-timepicker.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrap.min.js" />
+    <None Include="wwwroot\Configuration\js\bootstrapvalidator.min.js" />
+    <None Include="wwwroot\Configuration\js\charts.js" />
+    <None Include="wwwroot\Configuration\js\chosen.jquery.min.js" />
+    <None Include="wwwroot\Configuration\js\dashboard.js" />
+    <None Include="wwwroot\Configuration\js\datatables.bootstrap.js" />
+    <None Include="wwwroot\Configuration\js\datatables.responsive.min.js" />
+    <None Include="wwwroot\Configuration\js\dropzone.min.js" />
+    <None Include="wwwroot\Configuration\js\FileSaver.js" />
+    <None Include="wwwroot\Configuration\js\footable.all.min.js" />
+    <None Include="wwwroot\Configuration\js\form-component.js" />
+    <None Include="wwwroot\Configuration\js\form-file-upload.js" />
+    <None Include="wwwroot\Configuration\js\form-text-editor.js" />
+    <None Include="wwwroot\Configuration\js\form-validation.js" />
+    <None Include="wwwroot\Configuration\js\form-wizard.js" />
+    <None Include="wwwroot\Configuration\js\fullcalendar.min.js" />
+    <None Include="wwwroot\Configuration\js\gauge.min.js" />
+    <None Include="wwwroot\Configuration\js\gmaps.js" />
+    <None Include="wwwroot\Configuration\js\icons.js" />
+    <None Include="wwwroot\Configuration\js\jquery-2.2.4.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery-ui.custom.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery.bootstrap.wizard.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery.datatables.js" />
+    <None Include="wwwroot\Configuration\js\jquery.easypiechart.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery.flot.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery.flot.pie.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery.flot.resize.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery.maskedinput.min.js" />
+    <None Include="wwwroot\Configuration\js\jquery.sparkline.min.js" />
+    <None Include="wwwroot\Configuration\js\LICENSE" />
+    <None Include="wwwroot\Configuration\js\mail.js" />
+    <None Include="wwwroot\Configuration\js\markdown.js" />
+    <None Include="wwwroot\Configuration\js\misc-fullcalendar.js" />
+    <None Include="wwwroot\Configuration\js\misc-gmaps.js" />
+    <None Include="wwwroot\Configuration\js\moment.min.js" />
+    <None Include="wwwroot\Configuration\js\morris.min.js" />
+    <None Include="wwwroot\Configuration\js\nifty-demo.min.js" />
+    <None Include="wwwroot\Configuration\js\nifty.min.js" />
+    <None Include="wwwroot\Configuration\js\nouislider.min.js" />
+    <None Include="wwwroot\Configuration\js\pace.min.js" />
+    <None Include="wwwroot\Configuration\js\raphael.min.js" />
+    <None Include="wwwroot\Configuration\js\select2.min.js" />
+    <None Include="wwwroot\Configuration\js\skycons.min.js" />
+    <None Include="wwwroot\Configuration\js\summernote.min.js" />
+    <None Include="wwwroot\Configuration\js\switchery.min.js" />
+    <None Include="wwwroot\Configuration\js\tableExport.min.js" />
+    <None Include="wwwroot\Configuration\js\tables-bs-table.js" />
+    <None Include="wwwroot\Configuration\js\tables-datatables.js" />
+    <None Include="wwwroot\Configuration\js\tables-footable.js" />
+    <None Include="wwwroot\Configuration\js\to-markdown.js" />
+    <None Include="wwwroot\Configuration\js\ui-buttons.js" />
+    <None Include="wwwroot\Configuration\js\ui-modals.js" />
+    <None Include="wwwroot\Configuration\js\ui-panels.js" />
+    <None Include="wwwroot\Configuration\js\widgets.js" />
+    <None Include="wwwroot\Configuration\js\xlsx.core.min.js" />
+    <None Include="wwwroot\Configuration\myjs\appsetting.js" />
+    <None Include="wwwroot\Configuration\myjs\common.js" />
+    <None Include="wwwroot\Configuration\picture\1.jpg" />
+    <None Include="wwwroot\Configuration\picture\1.png" />
+    <None Include="wwwroot\Configuration\picture\10.png" />
+    <None Include="wwwroot\Configuration\picture\2.jpg" />
+    <None Include="wwwroot\Configuration\picture\2.png" />
+    <None Include="wwwroot\Configuration\picture\3.png" />
+    <None Include="wwwroot\Configuration\picture\4.png" />
+    <None Include="wwwroot\Configuration\picture\5.png" />
+    <None Include="wwwroot\Configuration\picture\7.png" />
+    <None Include="wwwroot\Configuration\picture\8.png" />
+    <None Include="wwwroot\Configuration\picture\9.png" />
+    <None Include="wwwroot\Configuration\picture\action-email-template.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-img-1.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-img-2.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-img-3.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-img-4.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-img-5.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-img-6.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-img-7.jpg" />
+    <None Include="wwwroot\Configuration\picture\bg-trns.jpg" />
+    <None Include="wwwroot\Configuration\picture\billing-email-template.jpg" />
+    <None Include="wwwroot\Configuration\picture\email-alert-template.jpg" />
+    <None Include="wwwroot\Configuration\picture\france.png" />
+    <None Include="wwwroot\Configuration\picture\germany.png" />
+    <None Include="wwwroot\Configuration\picture\img1.jpg" />
+    <None Include="wwwroot\Configuration\picture\img2.jpg" />
+    <None Include="wwwroot\Configuration\picture\img3.jpg" />
+    <None Include="wwwroot\Configuration\picture\italy.png" />
+    <None Include="wwwroot\Configuration\picture\logo.png" />
+    <None Include="wwwroot\Configuration\picture\mega-menu-1.jpg" />
+    <None Include="wwwroot\Configuration\picture\mega-menu-2.jpg" />
+    <None Include="wwwroot\Configuration\picture\mega-menu-3.jpg" />
+    <None Include="wwwroot\Configuration\picture\mega-menu-4.jpg" />
+    <None Include="wwwroot\Configuration\picture\mega-menu-5.jpg" />
+    <None Include="wwwroot\Configuration\picture\mega-menu-6.jpg" />
+    <None Include="wwwroot\Configuration\picture\shared-img.jpg" />
+    <None Include="wwwroot\Configuration\picture\spain.png" />
+    <None Include="wwwroot\Configuration\picture\united-kingdom.png" />
+    <None Include="wwwroot\flatpickr\flatpickr.js" />
+    <None Include="wwwroot\flatpickr\flatpickr.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\bootstrap-5.0.0-alpha1-dist\js\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\bootstrap-5.0.0-alpha1-dist\css\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

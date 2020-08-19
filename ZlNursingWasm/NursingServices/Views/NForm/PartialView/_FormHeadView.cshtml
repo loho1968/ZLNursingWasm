@@ -1,0 +1,23 @@
+﻿@using Newtonsoft.Json
+@{
+    bool watchModel = JsonConvert.DeserializeObject(ViewBag.WatchModel);
+    <div class="row header_line">
+        <div class="header">
+            <div class="oberv-time well">
+                <label class="time">观察时间</label>
+                <input class="flatpickr datetime observtime" data-enable-time=true data-time_24hr=true><img class="dateimg" src="~/img/icon_rili_18.png" />
+            </div>
+            @*操作栏*@
+            <div class="ml-auto operate">
+                @{ if (!watchModel)
+                    {
+                        <button type="button" class="submit saveout opbtn opbtn_info" onclick='SaveForms("out")'><img class=" operate_img" src="~/img/icon_save.png" />保存退出</button>
+                        <button type="button" class="submit savecontinue opbtn opbtn_none" onclick='SaveForms("notout")'><img class="operate_img" src="~/img/icon_xinzen.png" />保存继续</button>
+                    }
+                }
+                <button type="button" class="opbtn exit opbtn_none opbtn_exit" oncliek='CallBackToCEF("cancel")'><img class="operate_img" src="~/img/icon_tuichu.png" />退出</button>
+            </div>
+
+        </div>
+    </div>
+}

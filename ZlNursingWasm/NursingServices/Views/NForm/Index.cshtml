@@ -1,0 +1,187 @@
+﻿@using Newtonsoft.Json
+@using NursingModel.Form
+@model List<FormList>
+
+
+@{
+    Layout = "../Shared/_FormLayout.cshtml";
+}
+<script src="~/js/Browser.js"></script>
+<script src="~/js/ButtonRadio.js"></script>
+<link href="~/css/ButtonRadio.css" rel="stylesheet" />
+<script type="text/javascript">
+
+    formLists =@Html.Raw(ViewBag.viewFormLists);
+    formListScore = [];
+    highRisk = @Html.Raw(ViewBag.HighRisk);
+    middleRisk = @Html.Raw(ViewBag.MiddleRisk);
+    lowRisk = @Html.Raw(ViewBag.LowRisk);
+    formInfo = @Html.Raw(ViewBag.formInfo);
+    bloodPressureItem = @Html.Raw(ViewBag.bloodPressureItem);
+    watchModel= @Html.Raw(ViewBag.WatchModel);
+    //表单大类型
+    formMajorType= 'form';
+
+    $(function () {
+
+
+
+        $("body").on("click", ".itemLov:checkbox", function (e) {
+            ChangeCheckbox(e.target);
+        });
+        InitFormItem();
+
+
+        //先disable所有护理措施
+
+        $(".item_niList").attr("disabled", true);
+
+        //说明
+        //当说明大于2行，则默认折叠
+
+        if ($(".tips_content").find("p").length > 1) {
+            $(".tips_content").find("p").eq(0).append('<a href="#" class="desfolder more" title="展开更多">...展开更多</a>')
+        }
+        $("body").on("click", ".desfolder", function () {
+            var tag = $(this).attr("class").indexOf("more") >= 0 ? true : false;
+            //展开更多
+            if (tag) {
+                $(this).remove();
+                $(".tips_content").find("p").show();
+                $(".tips_content").find("p:last-child").append('<a href="#" class="desfolder less" title="向上收起">向上收起</a>')
+            }
+            //查看更少
+            else {
+                $(this).remove();
+                $(".tips_content").find("p:not(:first-child)").hide();
+                $(".tips_content").find("p:first-child").append('<a href="#" class="desfolder more" title="展开更多">...展开更多</a>')
+            }
+        })
+        //护理措施->展开/折叠
+        $(".open").click(function () {
+            var tag = $(this).attr("data-open");
+            $(".Measures_title").find("p").css({ "line-height": "0px" })
+            if (tag == "0") {
+                $(this).prev().attr("src", "/img/icon_shouqi.png");
+                $(this).val("折  叠");
+                $(this).attr("data-open", "1");
+                $(".niList").find("p").show();
+            }
+            else {
+                $(this).prev().attr("src", "/img/icon_zhankai.png");
+                $(this).val("展  开");
+                $(this).attr("data-open", "0");
+                $(".niList").find("p:not(:first-child)").hide();
+            }
+            var height = $(".Measures_title").height();
+            $(".Measures_title").find("p").css({ "line-height": height + "px" })
+        })
+
+    });
+
+
+</script>
+<link href="~/css/Form.css" rel="stylesheet" />
+<link href="~/css/ScaleForm.css" rel="stylesheet" />
+
+@{
+    string formRow;
+    int rowCount = 1;
+    string itemTitle = "";
+    string itemLabel = "";
+    var itemvalue = "";
+    string watchOnly = "";
+    bool watchModel = JsonConvert.DeserializeObject(ViewBag.WatchModel);
+    if (watchModel)
+    {
+        watchOnly = "hidden_div";
+    }
+    //头部区域
+    <partial name="PartialView/_FormHeadView"></partial>
+    <div class="container " id="myvideo">
+        @{
+            foreach (var form in Model)
+            {
+                if (rowCount % 2 == 0)
+                {
+                    formRow = "odd_row_form";
+
+                }
+                else
+                {
+                    formRow = "even_row_form";
+                }
+                <div class="main @formRow" id="a_@form.FormId" data-formType="@form.FormType">
+                    <p class="formTitle" for="a_@(form.FormId)_title">@form.FormName</p>
+                    <div class="content_row">
+                        @{
+                            foreach (var item in form.FormItems)
+                            {
+                                <div class="row form_row">
+                                    @{
+                                        item.FormType = form.FormType;
+                                    }
+                                    @Html.Partial("PartialView/_FormItemLabelView", item)
+                                    <div id="a_@(item.ItemId)" class="col-md-9 formrow" data-formId="@form.FormId" data-type="@item.InputType" data-itemid="@item.ItemId" data-observitemid="@item.ObservItemId" data-itemname="@item.ItemName" data-observname="@item.ObservItemName" data-observcode="@item.ObservItemCode">
+                                        @{
+                                            switch (item.InputType)
+                                            {
+                                                case "按钮单选":
+                                                    @Html.Partial("PartialView/_RadioButtonView", item);
+                                                    break;
+                                                case "单选组合":
+                                                    @Html.Partial("PartialView/_RadioComboCheckboxView", item);
+                                                    break;
+                                                case "平铺单选":
+                                                    @Html.Partial("PartialView/_RadioView", item);
+                                                    break;
+                                                case "下拉多选":
+                                                    @Html.Partial("PartialView/_SelectMultiView", item);
+                                                    break;
+                                                case "下拉单选":
+                                                    @Html.Partial("PartialView/_SelectSingleView", item);
+                                                    break;
+                                                case "平铺多选":
+                                                    @Html.Partial("PartialView/_CheckBoxView", item);
+                                                    break;
+                                                case "数字输入":
+                                                    @Html.Partial("PartialView/_InputNumberView", item);
+                                                    break;
+                                                case "时间选择":
+                                                    <input type="datetime-local" class="itemdate" />
+                                                    <i class="lastValues hide" aria-hidden="true"></i>
+                                                    break;
+                                                case "日期选择":
+                                                    <input type="date" class="itemdate" />
+                                                    <i class="lastValues hide" aria-hidden="true"></i>
+                                                    break;
+                                                case "文本框输入":
+                                                    <textarea rows="3" class="iteminput"></textarea>
+                                                    <i class="lastValues hide" aria-hidden="true"></i>
+                                                    break;
+                                                case "文字输入":
+                                                    <input type="text" class="intext iteminput" id="@item.ItemId" />
+                                                    <i class="lastValues hide" aria-hidden="true"></i>
+                                                    break;
+                                                default:
+                                                    <input type="text" class="intext iteminput" id="@item.ItemId" value="不支持类型：@item.InputType" />
+                                                    <i class="lastValues hide" aria-hidden="true"></i>
+                                                    break;
+                                            }
+                                        }
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    </div>
+                    @{
+                        @Html.Partial("PartialView/_ScaleFormResultView", form);
+                    }
+                </div>
+                @Html.Partial("PartialView/_FormDescriptionView", form);
+
+            }
+        }
+    </div>
+}

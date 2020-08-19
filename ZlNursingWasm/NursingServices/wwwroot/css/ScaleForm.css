@@ -1,0 +1,261 @@
+
+.pb-3 {
+    font-family: "Microsoft Yahei UI","Microsoft Yahei","微软雅黑",SimSun,"宋体", sans-serif;
+}
+
+.main {
+    margin-top: 20px;
+}
+
+.formTitle {
+    /*border-bottom: 1px solid rgba(220,220,220,0.5);*/
+}
+
+.form_label {
+    background-color: transparent;
+    display: inline-block;
+    padding-left: 16px;
+    border: none;
+    width: 100%;
+}
+
+.form_row {
+    border-top: none;
+    border-bottom: 1px solid rgba(220,220,220,0.5);
+}
+
+.content_row {
+    margin-left: 24px;
+}
+
+.itemLabel {
+    background-color: rgba(236,238,241,0.5);
+    text-align: right;
+    padding-right: 10px;
+    min-height: 53px;
+}
+/*.itemLabel label {
+    text-align: right;
+    display: block;
+    font-weight: bold;
+}*/
+
+/*.formrow {
+    border-bottom: 1px dashed darkgray;
+    padding-top: 10px;
+}*/
+
+.formrow-label {
+    padding-top: 10px;
+}
+
+.formscore {
+    font-weight: bold;
+    text-align: right;
+    margin-top: 33px;
+}
+
+.badge {
+    border-radius: 6px;
+}
+
+.title_small {
+    font-size: 8px
+}
+
+p {
+    margin: 0;
+}
+/*护理措施*/
+.niList {
+    margin-left: 8px;
+}
+
+    .niList p {
+        margin-top: 6px;
+    }
+
+        .niList p:not(:first-child) {
+            display: none;
+        }
+
+    .niList:disabled + label {
+        color: gray
+    }
+
+.Measures {
+    border-top: 1px dashed #d0d0d0;
+    margin-top: 24px;
+}
+
+.Measures_title {
+    background-color: rgba(52,123,255,0.1);
+    color: #333333;
+    font-size: 16px;
+}
+
+    .Measures_title p {
+        text-align: center;
+        line-height: 34px;
+    }
+
+.Measures_body {
+    font-size: 14px;
+    background-color: #F9FDFF;
+    color: #333333;
+}
+
+    .Measures_body .itemLov:checked + label {
+        font-weight: bold;
+    }
+
+.folder {
+    float: right;
+    font-size: 12px;
+    color: #666666;
+    margin-top: 5px;
+    margin-right: 21px;
+    text-align: center;
+}
+
+    .folder img {
+        position: relative;
+        top: 0px;
+        left: 26px;
+    }
+
+    .folder input[type=button] {
+        width: 95px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border: 1px solid #d0d0d0;
+        border-radius: 5px;
+    }
+
+        .folder input[type=button]:focus {
+            border: none;
+        }
+/*说明*/
+.formDescription {
+    background-color: #fffaeb;
+    border: 1px solid #ffe9a7;
+    margin-top: 8px;
+}
+
+.tips {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 24px;
+    padding-bottom: 14px;
+}
+
+    .tips p {
+        line-height: 19px;
+    }
+
+    .tips h5 {
+        color: #333333;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+.tips_content p:not(:first-child) {
+    display: none;
+}
+
+.des_img img {
+    margin-left: 6px;
+    margin-top: 24px;
+    width: 52px;
+}
+/*评分结果*/
+.result {
+    height: 60px;
+    margin-top: 39px;
+}
+
+.result_row {
+    height: 100%;
+}
+
+.result_title {
+    height: 100%;
+    text-align: center;
+    font-weight: bold;
+    line-height: 60px;
+}
+
+.result_score {
+    line-height: 60px;
+    font-weight: bold;
+}
+/*未评*/
+.normal {
+    border: 1px solid #eceef1;
+}
+
+    .normal .result_title {
+        background-color: #eceef1;
+        color: #333333;
+    }
+
+    .normal .result_score {
+        background-color: rgba(249,253,255,0.1);
+    }
+/*.高危*/
+.highrisk {
+    border: 1px solid #FF7E7E;
+}
+
+    .highrisk .result_title {
+        background-color: #FF7E7E;
+    }
+
+    .highrisk .result_score {
+        background-color: rgba(255,126,126,0.1);
+    }
+/*.中危*/
+.middlerisk {
+    border: 1px solid #FFC36D;
+}
+
+    .middlerisk .result_title {
+        background-color: #FFC36D;
+    }
+
+    .middlerisk .result_score {
+        background-color: rgba(255,195,109,0.1);
+    }
+/*低危*/
+.lowrisk {
+    border: 1px solid #3BCB9D;
+}
+
+    .lowrisk .result_title {
+        background-color: #3BCB9D;
+    }
+
+    .lowrisk .result_score {
+        background-color: rgba(59,203,157,0.1);
+    }
+/* 移动端 小于576px */
+@media (max-width: 576px) {
+    .result_score {
+        height: 58px;
+        text-align: center;
+    }
+
+    .Measures_title {
+        min-height: 58px;
+    }
+
+    .folder {
+        float: inherit;
+    }
+    .Measures {
+        margin-top: 58px;
+    }
+    .Measures_title p {
+        line-height: 58px;
+    }
+}

@@ -1,0 +1,30 @@
+﻿@using NursingModel.Form
+@using NursingBLL.Form
+@model FormItem
+
+@{
+    //单选按钮
+    string required = "";
+    string score;
+    string showname;
+    if (Model.ReqSign == 1) required = "required";
+
+    foreach (var lov in Model.FormItemListValues)
+    {
+
+
+        score = lov.Score >= 0 ? "+" + lov.Score.ToString() : lov.Score.ToString();
+        showname = lov.Display.Length < 5 ? lov.Display : lov.Display.Substring(0, 5) + "<span class='title_small'>" + lov.Display.Substring(5, lov.Display.Length - 5) + "</span>";
+
+        <input class="form hide form_radio itemLov " type="radio" @required name="@Model.ItemId" data-type="@Model.InputType" value="@lov.Return" id="a_@lov.ItemDataId" data-itemid="@Model.ItemId" data-score="@lov.Score">
+        <label class="richradio" for="a_@lov.ItemDataId">@Html.Raw(showname)  @score</label>
+
+        if (lov.OtherSign == 1)
+        {
+            <input type="text" class="intext other hide" id="a_@(Model.ItemId)_other" placeholder="请补充说明" />
+        }
+
+
+    }
+    <i class="lastValues hide" aria-hidden="true"></i>
+}

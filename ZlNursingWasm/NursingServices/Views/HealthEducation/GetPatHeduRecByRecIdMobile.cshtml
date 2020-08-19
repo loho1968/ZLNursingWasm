@@ -1,0 +1,280 @@
+﻿@using NursingModel
+@using Newtonsoft.Json
+@model PatHeduRec
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/popper_2.0.0.js"></script>
+    <script src="~/js/NursingForm.js"></script>
+    <script src="~/Bootstrap_4.1.1/dist/js/bootstrap.js"></script>
+    <script src="~/bootstrap-select-1.13.9/dist/js/bootstrap-select.js"></script>
+
+    <link rel="stylesheet" href="~/Bootstrap_4.1.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+    <link rel="stylesheet" href="~/css/Form.css"/>
+</head>
+<body>
+<div class="accordion" id="accordionExample">
+    <div class="form-group">
+        @{
+            var tmp = JsonConvert.DeserializeObject<List<HeduForms>>(Model.HeduContent).GroupBy(x => x.GroupName);
+            var i = 0;
+            foreach (var heduForms in tmp)
+            {
+                <div class="card">
+                    <div class="card-header" id="heading_@i">
+                        <img src="~/img/return.png" style="float:left;margin-top:8px;" onclick="ClickBack()"/>
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" name="heduGroup" type="button" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapse_@i">
+                                @Html.Raw(heduForms.Key)
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapse_@i" class="collapse show" aria-labelledby="heading_@i" data-parent="#accordionExample">
+
+                        <table class="table table-bordered">
+                            <tbody style="font-size:12px;">
+                            @{ var y = 0; }
+                            @foreach (var item in heduForms)
+                            {
+                                <tr>
+                                    <td style="border-bottom:none"></td>
+                                    @if (item.Predefine == 1)
+                                    {
+                                        <td class="stepName">
+                                            <div>@item.StepName</div>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <textarea class="form-control stepName" rows="2"></textarea>
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td style="border:none;">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input isCheck" id="cb_@Html.Raw(item.GroupId)_@Html.Raw(item.StepId)_@y" disabled="@ViewData["isView"]" checked="@item.IsCheck">
+                                            <label class="custom-control-label" for="cb_@Html.Raw(item.GroupId)_@Html.Raw(item.StepId)_@y"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style:none;padding:0px">
+                                            <li style="float:left;margin-right:30px">教育方式：</li>
+                                            @foreach (var method in item.EducationMethod)
+                                            {
+                                                var id = string.Empty;
+                                                if (method.Name == "书面")
+                                                {
+                                                    id = $"sm_{y}";
+                                                }
+                                                else
+                                                {
+                                                    id = $"sf_{y}";
+                                                }
+                                                <li style="float:left;margin-right:30px">
+                                                    <div class="custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input method" disabled="@ViewData["isView"]" checked="@method.IsCheck" id="@id" predefine="@item.Predefine" stepId="@item.StepId" groupId="@item.GroupId" groupName="@Html.Raw(item.GroupName)">
+                                                        <label class="custom-control-label" for="@id">@Html.Raw(method.Name)</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-top:none"></td>
+                                    <td>
+                                        <ul style="list-style:none;padding:0px">
+                                            <li style="float:left;margin-right:30px">效果评价：</li>
+                                            <li style="float:left;margin-right:30px">
+                                                <select class="custom-select mr-sm-2 xgpj" disabled="@ViewData["isView"]" name="pjqk" id="evaluation" data="@Html.Raw(@item.Evaluation)">
+                                                    <option value="@Html.Raw("未理解")">未理解</option>
+                                                    <option value="@Html.Raw("部分理解")">部分理解</option>
+                                                    <option value="@Html.Raw("完全理解")">完全理解</option>
+                                                </select>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                y++;
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                i++;
+            }
+        }
+    </div>
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">指导对象</legend>
+            @{
+                var heduObj = JsonConvert.DeserializeObject<List<InstructTarget>>(Model.HeduObject);
+                var x = 0;
+            }
+            <div class="col-sm-10">
+                @foreach (var obj in heduObj)
+                {
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input zddx" type="checkbox" id="heduObj_@x" disabled="@ViewData["isView"]" value="@Html.Raw(@obj.Name)" checked="@obj.IsCheck">
+                        <label class="custom-control-label" for="heduObj_@x">
+                            @Html.Raw(@obj.Name)
+                        </label>
+                    </div>
+                    x++;
+                }
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">评价时间</legend>
+            <div class="form-check">
+                <input class="form-control" type="datetime-local" disabled="@ViewData["isView"]" id="datetime" data-type="日期"/>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">最后修改人</legend>
+            <div class="form-check">
+                <input class="form-control" type="text" id="lastModifer" value="@Model.Executor" disabled/>
+            </div>
+        </div>
+    </fieldset>
+    @if (!ViewData.ContainsKey("isView"))
+    {
+        <button class="btn btn-primary btn-lg btn-block" @ViewData["isView"] onclick="ModifyHeduForm()" id="sbBtn">保存</button>
+    }
+</div>
+<script>
+$(document).ready(function(){
+    @{
+        var year = Model.EvaluationTime.Value.Year;
+        var month = Model.EvaluationTime.Value.Month.ToString("00");
+        var day = Model.EvaluationTime.Value.Day.ToString("00");
+        var hour = Model.EvaluationTime.Value.Hour.ToString("00");
+        var minute = Model.EvaluationTime.Value.Minute.ToString("00");
+    }
+     $("#datetime").val("@year-@month-@day"+"T"+"@hour:@minute:00");
+    
+    var xgpj = $(".xgpj");
+    for (var i = 0;i < xgpj.length; i++){
+        $(xgpj[i]).val($(xgpj[i]).attr("data"));
+     }
+});
+</script>
+<script>
+        function ModifyHeduForm() {
+            var data = {}
+            data.heduForm = [];
+            data.instructTarget = [];
+            data.pId = "@Model.PID";
+            data.pvId = "@Model.PvID";
+            data.wardId = "@Model.WardID";
+            data.executor = "@Html.Raw(ViewData["newExecutor"])";
+            data.admissionDateTime = "@Html.Raw(ViewData["admissionDateTime"])";
+            data.evaluationTime = $("#datetime").val();
+
+            var isCheck = $(".isCheck");
+            var stepName = $(".stepName");
+            var method = $(".method");
+            var xgpj = $(".xgpj");
+            for (var i = 0; i < isCheck.length; i++) {
+                var sm = $("#sm_"+i);
+                var sf = $("#sf_"+i);
+                var item = {};
+                if (!isCheck[i].checked) {                    
+                    item.isCheck = false;
+                }else {
+                    item.isCheck = true;
+                }
+
+                if (isCheck[i].checked && !sm.prop("checked") && !sf.prop("checked")) {
+                    alert("请选择教育方式");
+                    return;
+                }
+                
+                item.educationMethod = [];
+                if (stepName[i].innerText != "") {
+                    item.stepName = stepName[i].innerText;
+                } else {
+                    item.stepName = stepName[i].value;
+                }
+
+                if (typeof item.stepName == "undefined" || item.stepName == "" || item.stepName == null) {
+                    alert("请填写措施");
+                    return;
+                }
+                
+                var smcbMethod = {}
+                smcbMethod.name = "书面";
+                if (sm.prop("checked")) {                    
+                    smcbMethod.isCheck = true;                    
+                }else {
+                    smcbMethod.isCheck = false;     
+                }
+                item.educationMethod.push(smcbMethod);
+                
+                var sfcbMethod = {}
+                sfcbMethod.name = "示范";
+                if (sf.prop("checked")) {
+                    sfcbMethod.isCheck = true;                    
+                }else {
+                    sfcbMethod.isCheck = false;      
+                }
+                item.educationMethod.push(sfcbMethod);
+                
+                item.groupName = sm.attr("groupName");
+                item.groupId = sm.attr("groupId");
+                item.stepId = sm.attr("stepId");
+                item.predefine = sm.attr("predefine");
+
+                item.evaluation = $(xgpj[i]).val();
+                data.heduForm.push(item);
+            }
+
+            var zddx = $(".zddx");
+            data.instructTarget = [];
+            var zddxCount = 0;
+            for (var y = 0; y < zddx.length; y++) {
+                if (zddx[y].checked) {
+                    data.instructTarget.push({isCheck:true, name:zddx[y].value});
+                    zddxCount += 1;
+                }else {
+                    data.instructTarget.push({isCheck:false, name:zddx[y].value});
+                }
+            }         
+            if (data.instructTarget.length <= 0 || zddxCount <= 0) {
+                alert("请选择指导对象");
+                return;
+            }
+            
+            $.post("/pda/HealthEducation/ModifyHeduForm?recId=@Model.RecID", data, function (res, status) {
+                if (res.code == 200) {
+                    ClickBack();
+                }else {
+                    alert(res.Data.msg);
+                }           
+            });
+        }
+        
+        function ClickBack() {
+            window.location = "/pda/HealthEducation/HeduList?pid=@Html.Raw(ViewData["pid"])&pvid=@Html.Raw(ViewData["pvid"])&wardid=@Html.Raw(ViewData["wardid"])&executor=@Html.Raw(ViewData["newExecutor"])&admissionDateTime=@Html.Raw(ViewData["admissionDateTime"])&isMobile=1";
+        }
+    </script>
+</body>
+</html>

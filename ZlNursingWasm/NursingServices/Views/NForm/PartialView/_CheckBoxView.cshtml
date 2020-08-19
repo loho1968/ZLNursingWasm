@@ -1,0 +1,30 @@
+﻿@using NursingModel.Form
+@using NursingBLL.Form
+@model FormItem
+
+
+@{
+    //多选
+    string itemLov = "";
+    string itemLovTitle = "";
+    string required = "";
+    if (Model.ReqSign == 1) required = "required";
+    ItemLabel itemLabel = new ItemLabel();
+    ItemLabelBLL itemLabelBLL = new ItemLabelBLL();
+    foreach (var lov in Model.FormItemListValues)
+    {
+        itemLabel = itemLabelBLL.GetLovlabel(lov.Display);
+
+        <label class="checkbox-inline">
+            <input id="a_@lov.ItemDataId" class="itemLov choosing" type="checkbox" @required data-other="@lov.OtherSign" name="@Model.ItemId" value="@lov.Return" data-type="@Model.InputType" title="@itemLabel.title" data-itemid="@Model.ItemId">
+            <span class="text">@itemLabel.Lov</span>
+            @{
+                if (lov.OtherSign == 1)
+                {
+                    <input type="text" class="intext other hide" id="a_@(Model.ItemId)_other" placeholder="请补充说明" />
+                }
+            }
+        </label>
+        <i class="lastValues hide" aria-hidden="true"></i>
+    }
+}

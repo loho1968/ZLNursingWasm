@@ -1,0 +1,252 @@
+﻿@using NursingModel
+@using Newtonsoft.Json
+@model List<HeduForm>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/popper_2.0.0.js"></script>
+    <script src="~/js/NursingForm.js"></script>
+    <script src="~/Bootstrap_4.1.1/dist/js/bootstrap.js"></script>
+    <script src="~/bootstrap-select-1.13.9/dist/js/bootstrap-select.js"></script>
+
+    <link rel="stylesheet" href="~/Bootstrap_4.1.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+    <link rel="stylesheet" href="~/css/Form.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="accordion" id="accordionExample">
+        <div class="form-group">
+            @{
+                var groupName = Model.GroupBy(a => a.GroupName).ToList();
+                var i = 0;
+                var y = 0;
+                foreach (var item in groupName)
+                {
+                    <div class="card">
+                        <div class="card-header" id="heading_@i">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" name="heduGroup" type="button" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapse_@i">
+                                    @item.Key
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse_@i" class="collapse show" aria-labelledby="heading_@i" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">选择</th>
+                                        <th scope="col" style="width: 60%">措施</th>
+                                        <th scope="col">教育方式</th>
+                                        <th scope="col">效果评价</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item2 in item)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input isCheck" id="cb_@Html.Raw(item2.GroupID)_@Html.Raw(item2.StepID)_@y">
+                                                    <label class="custom-control-label" for="cb_@Html.Raw(item2.GroupID)_@Html.Raw(item2.StepID)_@y"></label>
+                                                </div>
+                                            </td>
+                                            @if (item2.Predefine == 1)
+                                            {
+                                                <td class="stepName">@item2.StepName</td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <textarea class="form-control stepName" rows="2"></textarea>
+                                                </td>
+                                            }
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input sm" id="sm_@Html.Raw(item2.GroupID)_@Html.Raw(item2.StepID)_@y" predefine="@item2.Predefine" stepId="@item2.StepID" groupId="@item2.GroupID" groupName="@item2.GroupName">
+                                                    <label class="custom-control-label" for="sm_@Html.Raw(item2.GroupID)_@Html.Raw(item2.StepID)_@y">书面</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input sf" id="sf_@Html.Raw(item2.GroupID)_@Html.Raw(item2.StepID)_@y">
+                                                    <label class="custom-control-label" for="sf_@Html.Raw(item2.GroupID)_@Html.Raw(item2.StepID)_@y">示范</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <select class="custom-select mr-sm-2 xgpj" name="pjqk">
+                                                    <option selected value="未理解">未理解</option>
+                                                    <option value="部分理解">部分理解</option>
+                                                    <option value="完全理解">完全理解</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        y++;
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    i++;
+                }
+            }
+        </div>
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">指导对象</legend>
+                <div class="col-sm-10">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input zddx" type="checkbox" id="hzCheck" value="患者">
+                        <label class="custom-control-label" for="hzCheck">
+                            患者
+                        </label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input zddx" type="checkbox" id="jsCheck" value="家属">
+                        <label class="custom-control-label" for="jsCheck">
+                            家属
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">评价时间</legend>
+                <div class="form-check">
+                    <input class="form-control" type="datetime-local" id="datetime" data-type="日期"/>
+                </div>
+            </div>
+        </fieldset>
+        <button class="btn btn-primary btn-lg btn-block" onclick="AddHeduForm()" id="sbBtn">保存</button>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    @{
+        var year = DateTime.Now.Year;
+        var month = DateTime.Now.Month.ToString("00");
+        var day = DateTime.Now.Day.ToString("00");
+        var hour = DateTime.Now.Hour.ToString("00");
+        var minute = DateTime.Now.Minute.ToString("00");
+    }
+    // $("#datetime").val("@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")");
+    $("#datetime").val("@year-@month-@day"+"T"+"@hour:@minute:00");
+});
+</script>
+<script>
+        function AddHeduForm() {
+            var data = {}
+            data.heduForm = [];
+            data.instructTarget = [];
+            data.pId = "@ViewData["pId"]";
+            data.pvId = "@ViewData["pvId"]";
+            data.wardId = "@ViewData["wardId"]";
+            data.executor = "@Html.Raw(ViewData["executor"])";
+            data.admissionDateTime = "@Html.Raw(ViewData["admissionDateTime"])";
+            data.evaluationTime = $("#datetime").val();
+
+            var isCheck = $(".isCheck");
+            var stepName = $(".stepName");
+            var smcb = $(".sm");
+            var sfcb = $(".sf");
+            var xgpj = $(".xgpj");
+            for (var i = 0; i < isCheck.length; i++) {
+                var item = {};
+                if (!isCheck[i].checked) {
+                    item.isCheck = false;
+                }else {
+                    item.isCheck = true;
+                }
+
+                if (isCheck[i].checked && !smcb[i].checked && !sfcb[i].checked) {
+                    alert("请选择教育方式");
+                    return;
+                }
+                
+                item.educationMethod = [];
+                if (stepName[i].innerText != "") {
+                    item.stepName = stepName[i].innerText;
+                } else {
+                    item.stepName = stepName[i].value;
+                }
+
+                if (isCheck[i].checked && (typeof item.stepName == "undefined" || item.stepName == "" || item.stepName == null)) {
+                    alert("请填写措施");
+                    return;
+                }
+                
+                var smcbMethod = {}
+                smcbMethod.name = "书面";
+                if (smcb[i].checked) {                    
+                    smcbMethod.isCheck = true;                    
+                }else {
+                    smcbMethod.isCheck = false;     
+                }
+                item.educationMethod.push(smcbMethod);
+                
+                var sfcbMethod = {}
+                sfcbMethod.name = "示范";
+                if (sfcb[i].checked) {
+                    sfcbMethod.isCheck = true;                    
+                }else {
+                    sfcbMethod.isCheck = false;      
+                }
+                item.educationMethod.push(sfcbMethod);
+                
+                item.groupName = smcb[i].getAttribute("groupName");
+                item.groupId = smcb[i].getAttribute("groupId");
+                item.stepId = smcb[i].getAttribute("stepId");
+                item.predefine = smcb[i].getAttribute("predefine");
+
+                item.evaluation = $(xgpj[i]).val();
+                data.heduForm.push(item);
+            }
+
+            var zddx = $(".zddx");
+            data.instructTarget = [];
+            var zddxCount = 0;
+            for (var y = 0; y < zddx.length; y++) {
+                if (zddx[y].checked) {
+                    data.instructTarget.push({isCheck:true, name:zddx[y].value});
+                    zddxCount += 1;
+                }else {
+                    data.instructTarget.push({isCheck:false, name:zddx[y].value});
+                }
+                        }
+            if (data.instructTarget.length <= 0 || zddxCount <= 0) {
+                alert("请选择指导对象");
+                return;
+            }
+
+            $.post("/HealthEducation/AddHeduForm", data, function (res, status) {
+                if (res.code == 200) {
+                    CallBackToCEF("submit");
+                }else {
+                    alert(res.Data.msg);
+                    CallBackToCEF("cancel");
+                }
+            });
+        }
+        
+        function CallBackToCEF(event) {
+        	try {
+        		CEFAPI.trigger(event, "");
+        	} catch (err) {
+        		console.error(err);
+        	}
+        }
+    </script>
+</body>
+</html>

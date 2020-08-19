@@ -1,0 +1,81 @@
+﻿@using NursingModel
+@model List<HeduGroup>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/popper_2.0.0.js"></script>
+    <script src="~/js/NursingForm.js"></script>
+    <script src="~/Bootstrap_4.1.1/dist/js/bootstrap.js"></script>
+    <script src="~/bootstrap-select-1.13.9/dist/js/bootstrap-select.js"></script>
+
+    <link rel="stylesheet" href="~/Bootstrap_4.1.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/bootstrap-select-1.13.9/dist/css/bootstrap-select.css">
+
+    <link rel="stylesheet" href="~/css/Form.css"/>
+</head>
+<body>
+<div id="accordionExample">
+    <div class="form-group">
+        <div class="card-header" >
+            <img src="~/img/return.png" style="float:left;margin-top:8px;" onclick="ClickBack()"/>
+            <h2 class="mb-0">
+                <button class="btn btn-link" name="heduGroup" type="button" data-toggle="collapse">
+                    健康宣教
+                </button>
+            </h2>
+        </div>
+        <div class="collapse show">
+            <table class="table">
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col-md-6">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input groupids" id="sm_@item.GroupID" value="@item.GroupID">
+                                    <label class="custom-control-label" for="sm_@item.GroupID">@Html.Raw(item.GroupName)</label>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" onclick="AddHeduForm()" id="sbBtn">下一步</button>
+    </div>
+    <input id="groupids" hidden value=""/>
+</div>
+<script type="text/javascript">
+        // $(function () {
+        //     $(".table tr").click(function () {
+        //         $(this).find(".card-link")[0].click();
+        //     });
+        // });
+        var url = "/pda/HealthEducation/Index?pid=@Html.Raw(ViewData["pid"])&pvid=@Html.Raw(ViewData["pvid"])&wardid=@Html.Raw(ViewData["wardid"])&executor=@Html.Raw(ViewData["executor"])&admissionDateTime=@Html.Raw(ViewData["admissionDateTime"])&isMobile=@Html.Raw(ViewData["isMobile"])";
+        
+        function AddHeduForm() {
+            var groupids = $(".groupids");
+            var g = "";
+            for (i=0;i<groupids.length;i++){
+                if(groupids[i].checked){
+                    g+="&groupids="+groupids[i].value;
+                }
+            }
+            
+            window.location = url+=g;
+        }
+        
+        function ClickBack() {
+            window.location = "/pda/HealthEducation/HeduList?pid=@Html.Raw(ViewData["pid"])&pvid=@Html.Raw(ViewData["pvid"])&wardid=@Html.Raw(ViewData["wardid"])&executor=@Html.Raw(ViewData["executor"])&admissionDateTime=@Html.Raw(ViewData["admissionDateTime"])&isMobile=1"
+        }
+</script>
+</body>
+</html>

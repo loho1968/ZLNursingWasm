@@ -1,0 +1,47 @@
+﻿@using NursingModel.Form
+@using NursingBLL.Form
+@model FormItem
+
+@{
+    //平铺多选
+    string required = "";
+    string lovChecked = "";
+    string otherValue = "";
+    string value = "";
+    string hide = "hide";
+    string[] comboValue;
+
+    ItemLabel itemLabel = new ItemLabel();
+    ItemLabelBLL itemLabelBLL = new ItemLabelBLL();
+    if (Model.ReqSign == 1) required = "required";
+
+    //项目值中有||，表示含有其他的说明文字
+    if (value.Contains("||"))
+    {
+        value = value.Split("||")[0];
+        otherValue = value.Split("||")[1];
+        hide = "";
+    }
+
+    comboValue = value.Split(",");
+
+    foreach (var lov in Model.FormItemListValues)
+    {
+
+        itemLabel = itemLabelBLL.GetLovlabel(lov.Display);
+
+        //todo:组合项目，修改是判断是否需要Checke，需要用其他逻辑，待完成
+
+        <label class="">
+            <input id="a_@lov.ItemDataId" class="itemLov choosing" type="checkbox" @lovChecked @required data-other="@lov.OtherSign" name="@Model.ItemId" value="@lov.Return" title="@itemLabel.title" data-type="单选组合" data-itemid="@Model.ItemId" data-score="@lov.Score">
+            <span class="text">@itemLabel.Lov</span>
+            @{
+                if (lov.OtherSign == 1)
+                {
+                    <input type="text" class="intext other @hide" placeholder="请补充说明" value="@otherValue" />
+                }
+            }
+        </label>
+    }
+    <i class="lastValues hide" aria-hidden="true"></i>
+}

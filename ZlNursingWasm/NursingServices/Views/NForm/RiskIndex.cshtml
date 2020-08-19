@@ -1,0 +1,247 @@
+﻿@using NursingModel.Form
+@model List<FormList>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>风险评估表</title>
+    <link href="~/Bootstrap_4.1.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/flatpickr/flatpickr.min.css" rel="stylesheet" />
+    <link href="~/css/riskIndex.css" rel="stylesheet" />
+    <script src="~/js/jquery-2.2.4.min.js"></script>
+    <script src="~/Bootstrap_4.1.1/dist/js/bootstrap.min.js"></script>
+    <script src="~/flatpickr/flatpickr.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="top">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-auto mr-auto">
+                        <label class="time">观察时间</label>
+                        <input class="flatpickr datetime"><img class="dateimg" src="~/img/icon_rili_18.png" />
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary">
+                            <img class="operate_img" src="~/img/icon_save.png" />
+                            <span class="btn-left-margin">保存</span>
+                        </button>
+                        <button type="button" class="btn btn-light">
+                            <img class="operate_img" src="~/img/icon_xinzen.png" />
+                            <span class="btn-left-margin">新增</span>
+                        </button>
+                        <button type="button" class="btn btn-light">
+                            <img class="operate_img" src="~/img/icon_tuichu.png" />
+                            <span class="btn-left-margin">退出</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            @foreach (var form in Model)
+            {
+                <div class="container bg-main">
+                    <div class="row justify-content-md-center table-header-height">
+                        <div class="col-md-auto table-header">
+                            @form.FormName
+                        </div>
+                    </div>
+
+                    <div class="row row-one">
+                        <div class="col table-body">
+                            <table class="table table-bordered" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th class="th-table-active"></th>
+                                        <th class="th-table-light">0分</th>
+                                        <th class="th-table-light">1分</th>
+                                        <th class="th-table-light">2分</th>
+                                        <th class="th-table-light">3分</th>
+                                        <th class="th-table-light">4分</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="checkdtbody">
+                                    @for (var k = 0; k < form.FormItems.Count; k++)
+                                    {
+                                        var form_items = form.FormItems[k];
+                                        <tr>
+                                            <td class="th-table-active aa" style="border-top: 0;border-right: 0">@form_items.ItemLabel</td>
+                                            @if (form_items.InputType == "按钮单选")
+                                            {
+                                                if (form_items.FormItemListValues.Count < 5)
+                                                {
+                                                    var fir = k + "-0";
+                                                    <td>
+                                                        <div class="checkbox0 aa">
+                                                            <input type="checkbox" id="@fir" class="checkbox-hide">
+                                                            <label class="checkbox-show" for="@fir"></label>
+                                                        </div>
+                                                    </td>
+                                                    for (var items_i = 0; items_i < form_items.FormItemListValues.Count; items_i++)
+                                                    {
+                                                        var formdataitem = form_items.FormItemListValues[items_i];
+                                                        var cla = "checkbox" + (items_i + 1) + " aa";
+                                                        var seid = k + "-" + (items_i + 1);
+                                                        <td>
+                                                            <div class='@cla'>
+                                                                <input type="checkbox" id="@seid" class="checkbox-hide">
+                                                                <label class="checkbox-show" for="@seid">@formdataitem.Display</label>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                    for (var i = 0; i < 4 - form_items.FormItemListValues.Count; i++)
+                                                    {
+                                                        var j = i + form_items.FormItemListValues.Count;
+                                                        var cla = "checkbox" + (j + 1) + " aa";
+                                                        var seid = k + "-" + (j + 1);
+                                                        <td>
+                                                            <div class='@cla'>
+                                                                <input type="checkbox" id="@seid" class="checkbox-hide">
+                                                                <label class="checkbox-show" for="@seid"></label>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    for (var items_i = 0; items_i < form_items.FormItemListValues.Count; items_i++)
+                                                    {
+                                                        var formdataitem = form_items.FormItemListValues[items_i];
+                                                        var cla = "checkbox" + items_i + " aa";
+                                                        var seid = k + "-" + items_i;
+                                                        <td>
+                                                            <div class='@cla'>
+                                                                <input type="checkbox" id="@seid" class="checkbox-hide">
+                                                                <label class="checkbox-show" for="@seid">@formdataitem.Display</label>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                    for (var i = 0; i < 5 - form_items.FormItemListValues.Count; i++)
+                                                    {
+                                                        var j = i + form_items.FormItemListValues.Count;
+                                                        var cla = "checkbox" + j + " aa";
+                                                        var seid = k + "-" + j;
+                                                        <td>
+                                                            <div class='@cla'>
+                                                                <input type="checkbox" id="@seid" class="checkbox-hide">
+                                                                <label class="checkbox-show" for="@seid"></label>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                }
+
+                                            }
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row row-two">
+                        <div class="col table-body">
+                            <table class="table table-two table-bordered">
+                                <tr>
+                                    <td class="th-table-active td-bingli">病历</td>
+                                    <td style="border: 0">
+                                        <div class="checkbox5 aa">
+                                            <input type="checkbox" id="14-1" class="">
+                                            <label class="" for="14-1">既往静脉血栓栓塞症+3</label>
+                                        </div>
+                                    </td>
+                                    <td style="border: 0">
+                                        <div class="checkbox5 aa">
+                                            <input type="checkbox" id="14-2" class="">
+                                            <label class="" for="14-2">在血栓形成倾向、抗凝血酶缺陷...+3</label>
+                                        </div>
+                                    </td>
+                                    <td style="border: 0">
+                                        <div class="checkbox5 aa">
+                                            <input type="checkbox" id="14-3" class="">
+                                            <label class="" for="14-3">心脏和(或)呼吸衰竭+1</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="th-table-active">肿瘤史</td>
+                                    <td colspan="3" class="td-zhongliu">
+                                        <div class="checkbox5 aa">
+                                            <input type="checkbox" id="15-1" class="td-zhongliu-left">
+                                            <label class="" for="15-1">活动恶性肿瘤,患者先前有局部..+3</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row row-three">
+
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="td-score td-score-one">评分结果</td>
+                                    <td class="td-score-value td-score-one-value">
+                                        [总分: 6, 风险: 高危]
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <table class="table table-bordered" style="margin: 0;">
+                                <tr>
+                                    <td class="td-score td-score-two">评分结果</td>
+                                    <td class="td-score-value td-score-two-value">
+                                        [总分: 12, 风险: 中危]
+                                    </td>
+                                </tr>
+                            </table>
+                        </div> <div class="col-12">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="td-score td-score-three">评分结果</td>
+                                    <td class="td-score-value td-score-three-value">
+                                        [总分: 30, 风险: 低危]
+                                    </td>
+                                </tr>
+                            </table>
+                        </div> <div class="col-12">
+                            <table class="table table-bordered" style="margin: 0;">
+                                <tr>
+                                    <td class="td-score td-score-four">评分结果</td>
+                                    <td class="td-score-value td-score-four-value">
+                                        未评
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+    <script>document.getElementsByClassName("flatpickr").flatpickr({
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        });
+        $(function () {
+            $('#checkdtbody label').on('click', function () {
+                var checks = $(this).parent().parent().parent().find('input');
+                for (var i = 0; i < checks.length; i++) {
+                    checks.eq(i).prop("checked", false);
+                }
+                $(this).prop("checked", true);
+            })
+        })</script>
+</body>
+</html>

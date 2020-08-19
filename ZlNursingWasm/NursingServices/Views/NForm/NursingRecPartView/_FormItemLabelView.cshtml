@@ -1,0 +1,28 @@
+﻿@using NursingModel.Form
+@model FormItem
+
+@{
+    string itemTitle = "";
+    string itemLabel = "";
+    if (Model.ItemLabel.Length > 15)
+    {
+        itemTitle = Model.ItemLabel;
+        itemLabel = Model.ItemLabel.Substring(0, 14) + "...";
+    }
+    else
+    {
+        itemTitle = "";
+        itemLabel = Model.ItemLabel;
+    }
+
+    <div class="form_label">
+
+        <label class="itemLabel" data-ajust="0" for="a_@Model.ItemId" id="a_@(Model.ItemId)_label" title="@Model.ItemLabel">
+            @itemLabel
+        </label>
+        @{
+
+            <i class="fa fa-history history hide" aria-hidden="true" id="a_@(Model.ItemId)_history" data-itemid="@Model.ItemId"></i>
+        }
+    </div>
+}

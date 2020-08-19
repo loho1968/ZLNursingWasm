@@ -1,0 +1,207 @@
+﻿@model List<NursingModel.PatAdj>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>护理记录单</title>
+    <link rel="stylesheet" href="~/css/screen.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="~/css/responsive.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="~/inc/colorbox.css" type="text/css" media="screen">
+    <!--图标-->
+    <!--<link href="Bootstrap_4.1.1/dist/fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet" />-->
+    <link href="~/Bootstrap_4.1.1/dist/fontawesome-free-5.13.0-web/css/all.css" rel="stylesheet" />
+    @* 图标字体 *@
+    <link rel="stylesheet" href="~/font_ni8ivv2uyi/iconfont.css" />
+    <script>//生成随机字符串
+        function randomString(len) {
+            len = len || 32;
+            var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+            var maxPos = $chars.length;
+            var pwd = '';
+            for (i = 0; i < len; i++) {
+                pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return pwd;
+        }</script>
+    <style>
+
+        .iconfont {
+            font-size: 12px;
+            color: brown;
+            cursor: pointer;
+        }
+
+            .iconfont:hover {
+                font-size: 20px;
+            }
+
+        .normal {
+            color: green !important;
+        }
+
+        .fever {
+            color: palevioletred !important;
+        }
+
+        .highfever {
+            color: orangered !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h2>中联护理记录单查看</h2>
+
+        <div id="timelineContainer" class="timelineContainer">
+            <div class="timelineToggle">
+                <p><a class="expandAll">+ 全部展开</a></p>
+            </div>
+            <div class="form-check form-check-inline" style="display:inline-block;line-height:inherit">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" style="height:16px;width:16px;">
+                <label class="form-check-label" for="inlineCheckbox1" style="font-size:14px">病人外出</label>
+            </div>
+            <div class="form-check form-check-inline" style="display:inline-block">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" style="height:16px;width:16px;">
+                <label class="form-check-label" for="inlineCheckbox2" style="font-size:14px">病人变动</label>
+            </div>
+            <div class="form-check form-check-inline" style="display:inline-block">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" style="height:16px;width:16px;">
+                <label class="form-check-label" for="inlineCheckbox3" style="font-size:14px">病人评估</label>
+            </div>
+
+            <br class="clear">
+            @{ int i = 0;
+                string idtmp = null;
+                foreach (var m in Model)
+                {
+
+                    if (i == 0 || DateTime.Parse(Model[i - 1].DayTime) != DateTime.Parse(m.DayTime))
+                    {
+                        var mainid = Guid.NewGuid().ToString().Replace("-", "");
+                        idtmp = mainid;
+                        <h2 id="head_@mainid" class="head_title">
+                            <i class="fa fa-stethoscope" aria-hidden="true"></i>@DateTime.Parse(m.DayTime).ToString("yyyy/MM/dd")
+                            <span>
+                                <i class="fa fa-angle-down down" title="展开" aria-hidden="true" style="display: none;"></i>
+                                <i class="fa fa-angle-up up" title="折叠" aria-hidden="true"></i>
+                            </span>
+                        </h2>
+                    }
+                    <div id="body_@idtmp">
+                        @{
+                            <div class="timelineMajor">
+
+                                @{
+
+                                    var id = "a" + new Random().Next(10000, 99999) as string;
+                                    var ex = id + "EX";
+                                    <dl class="timelineMinor">
+                                        @{
+                                            var show_text = m.ExeTime + "&nbsp;&nbsp;" + m.ContentType + "&nbsp;&nbsp;" + m.Status; //chil.ItemTime.ToString("HH:mm") + "&nbsp;&nbsp;" + chil.Name + "&nbsp;&nbsp;" + chil.Value;
+                                        }
+                                        <dt class="text_title" id="@id" data-time="@m.ExeTime" data-type="@m.ContentType">
+
+                                            <a>@Html.Raw(show_text)</a>
+
+
+                                        </dt>
+
+                                    </dl>
+                                }
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                    i = i + 1;
+                }
+            }
+            <br class="clear">
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/inc/colorbox.js"></script>
+    <script type="text/javascript" src="~/js/timeliner.min.js"></script>
+    <script src="~/layer/layer.js"></script>
+    <script>//整体点击
+        $(".head_title").click(function () {
+            var i = $(this).find('span>i:not(:hidden)');
+            var title = i.attr('title');
+            if (title === "展开") {
+                i.hide();
+                i.parent().find(".up").show();
+                let id = i.parent().parent().attr('id').replace('head', 'body');
+                $('#' + id).show(600);
+            } else if (title === "折叠") {
+                i.hide();
+                i.parent().find(".down").show();
+                let id = i.parent().parent().attr('id').replace('head', 'body');
+                $('#' + id).hide(600);
+
+            }
+        });</script>
+    <script>var timer = null;
+        $(document).ready(function () {
+            $.timeliner({
+                timelineContainer: '#timelineContainer',
+                //startOpen: ['#19540517EX']
+            });
+        });
+        //点击文字标题
+        $('.text_title').dblclick(function () {
+            clearTimeout(timer);
+            var type = $(this).attr('data-type');
+            switch (type) {
+                case "引流量":
+                    var index = layer.open({
+                        type: 2,
+                        title: '引流量查看',
+                        shadeClose: true,
+                        btn: ["确定", "取消"],
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['80%', '70%'],
+                        content: "/Nurse/Drainage",
+                        yes: function (index, layero) {
+                            //确认
+                            layer.close(index);
+                            var iframeWin = window[layero.find('iframe')[0]['name']];
+                        },
+                        end: function () {
+                        }
+                    });
+                    break;
+                case "体温单":
+                    layer.open({
+                        type: 2,
+                        id: "one",
+                        title: "体温单",
+                        shade: 0.3, //不显示遮罩
+                        area: ['1300px', "700px"], //宽高
+                        content: "/Nurse/Thermometer",
+                        btn: ["确定", "取消"],
+                        yes: function (index, layero) {
+                            //确认
+                            layer.close(index);
+                            var iframeWin = window[layero.find('iframe')[0]['name']];
+                        },
+                        end: function () {
+                        }
+                    });
+                    break;
+            }
+        });</script>
+
+</body>
+
+</html>

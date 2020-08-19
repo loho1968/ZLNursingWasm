@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2307847",
+      "name": "四级推荐",
+      "font_class": "sijituijian",
+      "unicode": "e776",
+      "unicode_decimal": 59254
+    },
+    {
+      "icon_id": "4823150",
+      "name": "一般",
+      "font_class": "yiban",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "9185247",
+      "name": "轻微",
+      "font_class": "qingwei",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "9915258",
+      "name": "二级",
+      "font_class": "erji",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "9915260",
+      "name": "一级",
+      "font_class": "yiji",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "12928550",
+      "name": "严重",
+      "font_class": "yanzhong",
+      "unicode": "e707",
+      "unicode_decimal": 59143
+    },
+    {
+      "icon_id": "14147694",
+      "name": "三级奖励",
+      "font_class": "sanjijiangli",
+      "unicode": "e739",
+      "unicode_decimal": 59193
+    }
+  ]
+}

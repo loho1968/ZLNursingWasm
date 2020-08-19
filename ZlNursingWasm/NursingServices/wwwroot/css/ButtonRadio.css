@@ -1,0 +1,46 @@
+﻿
+.richradio, .richcheckbox {
+    border: 1px solid #CCC;
+    font-size: 16px;
+    color: #1f1f1f;
+    display: inline-block;
+    height: 26px;
+    line-height: 18px;
+    padding: 4px 12px 4px 5px;
+    min-width: 60px;
+    text-align: center;
+    margin: 13px 2px 2px 2px;
+    border-radius: 4px;
+}
+
+    .richradio:hover, .richcheckbox:hover {
+        cursor: pointer;
+    }
+
+.form_radio:checked + label {
+    /*方式一*/
+    /*background: url(../img/checked.svg) no-repeat right bottom;
+    color: #00a4ff;*/
+    /*方式二*/
+    background-color: #007Bff;
+    border-radius: 4px;
+    color: #FFFEFE;
+
+    background-size: auto auto;
+    border: 1px solid #00a4ff;
+    background-size: 21px 21px;  
+}
+
+.form_checkbox:checked + label {
+    /*方式一*/
+    /*background: url(../img/checked.svg) no-repeat right bottom;
+    color: #00a4ff;*/
+    /*方式二*/
+    background-color: #007Bff;
+    border-radius: 4px;
+    color: #FFFEFE;
+
+    background-size: auto auto;
+    border: 1px solid #00a4ff;
+    background-size: 21px 21px;
+}

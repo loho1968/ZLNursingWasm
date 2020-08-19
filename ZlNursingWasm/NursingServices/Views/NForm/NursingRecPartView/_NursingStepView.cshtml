@@ -1,0 +1,176 @@
+﻿@using NursingModel.Form
+@model FormList
+
+@{
+    //护理记录单的病情观察
+
+    <div class="row obserstep_container ">
+        <div class="NursingStep_title" style="width:100%">
+            <div style="margin-top: 10px;">
+                <i class="fa fa-edit edit" title="弹出选择病情观察和措施" aria-hidden="true">&nbsp;&nbsp;</i><p style="display: inline-block;">病情观察和措施</p>
+                @*操作按钮折叠-展开*@
+                <div class="folder">
+                    <img src="~/img/icon_zhankai.png" class="folder-img" />
+                </div>
+            </div>
+            <div class="NursingStep_body">
+
+                <div class="NursingStep" id="NursingStep">
+                    @{
+                        <textarea rows="3" class="iteminput area" id="nursingstep"></textarea>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pop hide">
+        <br />
+        <h5><abbr title="鼠标双击处理措施即可选择，删除请直接在文本框中删除选项" class="initialism"><mark>已选措施：</mark></abbr></h5>
+        <textarea class="choose_ph" placeholder="双击措施即可选择至此"></textarea>
+        <hr />
+        <div class="row">
+            @*分类*@
+            <div class="col-md-4">
+                <table class="type">
+                </table>
+            </div>
+            @*详细选项*@
+            <div class="col-md-8">
+                <table class="detail">
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <style>
+        .edit {
+            cursor: pointer;
+        }
+
+        .choose_ph {
+            width: 90%;
+            margin-left: 14px;
+            border: 1px solid darkgray;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+            .choose_ph:focus {
+                border: 2px solid #96afe1;
+            }
+
+        textarea {
+            outline: none
+        }
+
+        .choose {
+            background-color: #c8e6f3;
+        }
+    </style>
+
+    <script>var detaildata;
+        var typedata;
+        $(function () {
+            detaildata = eval('(' + phraseList + ')');
+            typedata = eval('(' + phraseType + ')');
+            $(".edit").click(function () {
+                //绑定分类
+                $('.type').bootstrapTable({
+                    columns: [{
+                        field: 'PHRASES_TYPE_NAME',
+                        title: '类型'
+                    }],
+                    data: typedata,
+                    pagination: true,//分页
+                    pageNumber: 1,//初始页
+                    pageSize: 10,//分页条数
+                    search: true,
+                    showRefresh: true,
+                    visibleSearch: true,
+                    onClickRow: function (row, element, field) {
+                        var typeid = row.PHRASES_TYPE_ID;
+                        var data = GetDataByTypeID(typeid);
+                        $(".type tr").removeClass("choose");
+                        $(element).addClass("choose");
+                        $('.detail').bootstrapTable("load", data);
+                    }
+                })
+
+                //绑定详细数据
+                var fid = typedata[0].PHRASES_TYPE_ID;
+                var firstdetaildata = GetDataByTypeID(fid);
+                LoadChildTable(firstdetaildata);
+
+                //弹出层
+                LoadPop();
+            });
+        })
+
+        //加载弹出层
+        function LoadPop() {
+            layer.open({
+                type: 1,
+                title: "病情观察和措施选择",
+                area: ['70%', '80%'],
+                content: $(".pop"),
+                btn: ["保存", "取消"],
+                yes: function () {
+                    $(".area").val($(".choose_ph").val());
+                    layer.closeAll();
+                },
+                btn2: function () {
+                    layer.closeAll();
+                }
+            });
+        }
+
+
+        //加载子表-明细数据
+        function LoadChildTable(res) {
+            $('.detail').bootstrapTable({
+                columns: [{
+                    field: 'PHRASES_CODE',
+                    title: '编码'
+                }, {
+                    field: 'PHRASES_TEXT',
+                    title: '处理措施'
+                }, {
+                    field: 'PHRASES_NAME',
+                    title: '名称'
+                }],
+                data: res,
+                pagination: true,//分页
+                pageNumber: 1,//初始页
+                pageSize: 10,//分页条数
+                showColumns: true,
+                showColumnsSearch: true,
+                showRefresh: true,
+                search: true,
+                visibleSearch: true,
+                onDblClickCell: function (field, value, row, ele) {
+                    var txt = row.PHRASES_TEXT;
+                    var v = $(".choose_ph").val();
+                    if (v.trim() == "") {
+                        $(".choose_ph").val(txt);
+                    }
+                    else {
+                        $(".choose_ph").val(v + "，" + txt);
+                    }
+                }
+            })
+        }
+
+        //根据类型获取数据
+        function GetDataByTypeID(fid) {
+            var firstdetaildata = [];
+            detaildata.forEach(function (item, index) {
+                if (item.PHRASES_TYPE_ID == fid) {
+                    firstdetaildata.push(item);
+                }
+            })
+            return firstdetaildata;
+        }</script>
+}

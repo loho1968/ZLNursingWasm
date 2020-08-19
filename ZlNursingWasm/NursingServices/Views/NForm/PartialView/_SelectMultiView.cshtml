@@ -1,0 +1,18 @@
+﻿@using NursingModel.Form
+@model FormItem
+
+@{
+    //下拉多选
+    string itemLov = "";
+    string itemLovTitle = "";
+    <select class="selectpicker itemselect" data-type="下拉多选" multiple="multiple" id="@Model.ItemId" data-live-search="true">
+        <option id="" name="@Model.ItemId" value="" data-type="下拉多选" formId="@Model.FormId" itemid="@Model.ItemId"></option>
+        @{
+            foreach (var lov in Model.FormItemListValues)
+            {
+                <option id="a_@lov.ItemDataId" name="@Model.ItemId" value="@lov.Return" data-type="下拉多选" formId="@Model.FormId" itemid="@Model.ItemId">@lov.Display</option>
+            }
+        }
+    </select>
+    <i class="lastValues hide" aria-hidden="true"></i>
+}

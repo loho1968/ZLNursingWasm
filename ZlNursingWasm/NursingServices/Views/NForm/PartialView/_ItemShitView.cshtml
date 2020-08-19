@@ -1,0 +1,38 @@
+﻿@using NursingModel.Form
+@model FormItem
+
+@{
+    //今日大便次数
+    <label class="checkbox-inline">
+        <input id="a_@(Model.ItemId)_incontinence" class="itemLov choosing shit" type="checkbox" name="@Model.ItemId" value="1">
+        <span class="text">大便失禁</span>
+    </label>
+    <label class="checkbox-inline">
+        <input id="a_@(Model.ItemId)_anal" class="itemLov choosing shit" type="checkbox" name="@Model.ItemId" value="1">
+        <span class="text">人工肛门</span>
+    </label>
+
+    <label class="shit itemLabel" data-ajust="0" for="a_@Model.ItemId" id="a_@(Model.ItemId)_shit_before_count_label" title="">
+        大便次数
+    </label>
+    <select class="selectpicker" data-type="下拉单选" data-style="shit_select" id="@(Model.ItemId)_before" data-live-search="true" title="">
+        <option class="itemLov" name="@Model.ItemId" value="0" data-type="下拉单选">0</option>
+        <option class="itemLov" name="@Model.ItemId" value="1" data-type="下拉单选">1</option>
+        <option class="itemLov" name="@Model.ItemId" value="2" data-type="下拉单选">2</option>
+        <option class="itemLov" name="@Model.ItemId" value="3" data-type="下拉单选">3</option>
+        <option class="itemLov" name="@Model.ItemId" value="4" data-type="下拉单选">4</option>
+        <option class="itemLov" name="@Model.ItemId" value="*" data-type="下拉单选">*</option>
+    </select>
+
+    <label class="shit itemLabel" data-ajust="0" for="a_@(Model.ItemId)_after" id="a_@(Model.ItemId)_after_label" title="">
+        灌肠后
+    </label>
+    <select class="selectpicker" data-live-search="true" data-style="shit_select" data-itemid="shit_after" id="a_@(Model.ItemId)_after">
+        <option class="itemLov" name="@Model.ItemId" value="0" data-type="下拉单选">0</option>
+        <option class="itemLov" name="@Model.ItemId" value="1" data-type="下拉单选">1</option>
+        <option class="itemLov" name="@Model.ItemId" value="2" data-type="下拉单选">2</option>
+        <option class="itemLov" name="@Model.ItemId" value="3" data-type="下拉单选">3</option>
+        <option class="itemLov" name="@Model.ItemId" value="4" data-type="下拉单选">4</option>
+        <option class="itemLov" name="@Model.ItemId" value="*" data-type="下拉单选">*</option>
+    </select>
+}

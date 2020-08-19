@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出错啦！</title>
+    <link rel="stylesheet" href="Bootstrap_4.1.1/dist/css/bootstrap.min.css">
+    <script src="Bootstrap_4.1.1/dist/js/bootstrap.min.js"></script>
+    <style>
+        .main {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .font-one {
+            font-size: 24px;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .font-two {
+            color: #00000073;
+            font-family: MicrosoftYaHei;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            border: 1px solid #00000026;
+            border-radius: 1px;
+        }
+
+        .btn-light {
+            margin-left: 8px;
+            background-color: white;
+            border: 1px solid #00000026;
+            border-radius: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="" style="min-height: 1300px;background-color: #f8f9fa!important;">
+        <div class="row justify-content-center bg-light">
+            <div class="align-self-center">
+                <div class="main">
+                    <img class="operate_img" src="img/pic_default_juxing.png" />
+                    <div class="font-one">处理任务时，发现错误</div>
+                    <div class="font-two">
+                        @ViewBag.error
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary">重新提交</button>
+                        <button type="button" class="btn btn-light">返回列表</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
