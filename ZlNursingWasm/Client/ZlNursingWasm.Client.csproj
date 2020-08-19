@@ -11,10 +11,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.1" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Shared\ZlNursingWasm.Shared.csproj" />
+    <PackageReference Include="Blazorise" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.Sidebar" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.TreeView" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.AntDesign" Version="0.9.1.2" />
+    <PackageReference Include="AntBlazor" Version="0.1.0-nightly-113668610" />
   </ItemGroup>
 
   <ItemGroup>

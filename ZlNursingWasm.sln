@@ -5,7 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZlNursingWasm.Server", "ZlN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZlNursingWasm.Client", "ZlNursingWasm\Client\ZlNursingWasm.Client.csproj", "{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZlNursingWasm.Shared", "ZlNursingWasm\Shared\ZlNursingWasm.Shared.csproj", "{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NursingServices", "ZlNursingWasm\NursingServices\NursingServices.csproj", "{0286DE4E-FD80-4CBB-8A11-455695E1B0D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NursingCommon", "ZlNursingWasm\NursingCommon\NursingCommon.csproj", "{3F76CB94-580E-4274-8491-1DA1B4CAB850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NursingModel", "ZlNursingWasm\NursingModel\NursingModel.csproj", "{178A5ABA-111A-4437-8FAD-4FAE1D1E27EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,17 @@ Global
 		{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD3B0FC9-B85F-41B6-8260-EBDFB7DD252F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B3D27BD-AB86-48FD-B19E-C2DC779B63A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0286DE4E-FD80-4CBB-8A11-455695E1B0D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0286DE4E-FD80-4CBB-8A11-455695E1B0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0286DE4E-FD80-4CBB-8A11-455695E1B0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0286DE4E-FD80-4CBB-8A11-455695E1B0D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F76CB94-580E-4274-8491-1DA1B4CAB850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F76CB94-580E-4274-8491-1DA1B4CAB850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F76CB94-580E-4274-8491-1DA1B4CAB850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F76CB94-580E-4274-8491-1DA1B4CAB850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178A5ABA-111A-4437-8FAD-4FAE1D1E27EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178A5ABA-111A-4437-8FAD-4FAE1D1E27EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178A5ABA-111A-4437-8FAD-4FAE1D1E27EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178A5ABA-111A-4437-8FAD-4FAE1D1E27EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

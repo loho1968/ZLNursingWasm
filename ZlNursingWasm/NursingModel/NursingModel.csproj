@@ -22,18 +22,16 @@
     </PackageReference>
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="2.19.70" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.70" />
-    <PackageReference Include="sqlSugarCore" Version="5.0.0.14" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.4" />
     <PackageReference Include="Mapster" Version="5.3.2" />
     <PackageReference Include="Mapster.EFCore" Version="1.0.0" />
+    <PackageReference Include="Npgsql" Version="5.0.0-alpha1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DbContext\" />
     <Folder Include="Example\" />
-    <Folder Include="Form\" />
-    <Folder Include="Base\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NursingCommon\NursingCommon.csproj" />

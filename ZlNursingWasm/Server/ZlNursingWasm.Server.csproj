@@ -6,11 +6,21 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
+    <PackageReference Include="Blazorise" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.TreeView" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.AntDesign" Version="0.9.1.2" />
+    <PackageReference Include="Blazorise.Sidebar" Version="0.9.1.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Client\ZlNursingWasm.Client.csproj" />
-    <ProjectReference Include="..\Shared\ZlNursingWasm.Shared.csproj" />
+    <ProjectReference Include="..\NursingModel\NursingModel.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\NursingCommon\NursingCommon.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 

@@ -24,10 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NursingBLL\NursingBLL.csproj" />
     <ProjectReference Include="..\NursingCommon\NursingCommon.csproj" />
-    <ProjectReference Include="..\NursingModel\NursingModel.csproj" />
-    <ProjectReference Include="..\ScheduledTasks\ScheduledTasks.csproj" />
   </ItemGroup>
 
 
